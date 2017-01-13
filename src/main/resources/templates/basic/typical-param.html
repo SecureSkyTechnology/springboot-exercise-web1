@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+</head>
+<body>
+
+<h3>@RequestParam, @RequestBody, @CookieValue, @RequestHeader, カスタムフォームBean によるメソッド引数受け取りのデモ</h3>
+
+<th:block th:fragment="result">
+
+<h4>@RequestParam</h4>
+<table border="1">
+<tr><th>qp1</th><td data-th-text="${qp1}"></td></tr>
+<tr><th>qp2</th><td data-th-text="${qp2}"></td></tr>
+<tr><th>qp3</th><td data-th-text="${qp3}"></td></tr>
+<tr><th>qp4</th><td data-th-text="${qp4}"></td></tr>
+<tr><th>fp1</th><td data-th-text="${fp.fp1}"></td></tr>
+<tr><th>fp2</th><td><ol><li data-th-each="iter : ${fp.fp2}" data-th-text="${iter}"></li></ol></td></tr>
+<tr><th>fp3</th><td data-th-text="${fp.fp3}"></td></tr>
+</table>
+
+<h4>@RequestBody</h4>
+[<p data-th-text="${body}"></p>]
+
+<p>・・・ん？Query Stringとform-uelencodedのbodyが連結されてないか、これ・・・。</p>
+
+<h4>@CookieValue</h4>
+<table border="1">
+<tr><th>JSESSIONID</th><td data-th-text="${jsessionId}"></td></tr>
+<tr><th>xxxxxxx</th><td data-th-text="${nonExistCookie}"></td></tr>
+</table>
+
+<h4>@RequestHeader</h4>
+<table border="1">
+<tr><th>Host</th><td data-th-text="${host}"></td></tr>
+<tr><th>Accept-Encoding</th><td data-th-text="${acceptEncoding}"></td></tr>
+<tr><th>X-Custom-XXXX</th><td data-th-text="${nonExistHeader}"></td></tr>
+</table>
+
+</th:block>
+
+</body>
+</html>

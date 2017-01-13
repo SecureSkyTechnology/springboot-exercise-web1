@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>Thymeleaf Fragments Sub Template</title>
+</head>
+<body>
+
+<div th:fragment="copyright">
+&copy; 2016 SecureSky-Tech, Inc.
+</div>
+
+<div id="submenu">
+<ul>
+<li>menu1</li>
+<li>menu2</li>
+<li>menu3</li>
+</ul>
+</div>
+
+<div th:fragment="fr-with-args(s1, s2, s3)">
+<p th:text="${s1} + ' - ' + ${s2} + ' - ' + ${s3}">fr-with-args</p>
+</div>
+
+<div th:fragment="fr-without-args">
+<p th:text="${s1} + ' - ' + ${s2} + ' - ' + ${s3}">fr-with-args</p>
+</div>
+
+<div th:fragment="menu-admin">
+<ul>
+<li>admin-menu1</li>
+<li>admin-menu2</li>
+<li>admin-menu3</li>
+</ul>
+</div>
+
+<div th:fragment="menu-no-admin">
+<ul>
+<li>no-admin-menu1</li>
+<li>no-admin-menu2</li>
+<li>no-admin-menu3</li>
+</ul>
+</div>
+
+</body>
+</html>

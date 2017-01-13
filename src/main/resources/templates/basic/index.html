@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>basic/index.html foldered template</title>
+<script th:src="@{/webjars/jquery/3.1.1-1/jquery.min.js}"></script>
+<script>
+function call_ajax(callMethod, callUrl, targetId) {
+	var qstr = $('#call_ajax_query_form').serialize();
+	var fstr = $('#call_ajax_post_form').serialize();
+	$.ajax({
+		type: callMethod,
+		url: callUrl + '?' + qstr,
+		dataType: 'html',
+		headers: {
+			'X-Custom-Foo' : 'Hello, Ajax',
+			'X-Custom-Bar' : 'Hello, jQuery'
+		},
+		contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+		processData: false,
+		data: fstr
+	})
+	.done(function(data) {
+		$(targetId).html(data);
+	})
+	.fail(function(xhr, status, errorThrown) {
+		alert('error, show console log!');
+		console.log('Status', status);
+		console.log('Error', errorThrown);
+		console.dir(xhr);
+	});
+}
+
+function call_json_mapped_model(targetId) {
+	var qstr = $('#call_ajax_query_form').serialize();
+	var jsondata = {
+		model1: {
+			id: 100,
+			name: '日本語名',
+			age: 40
+		},
+		listOfModel2: [{
+			id: 101,
+			name: '日本語名1',
+			hobbies: ['料理', 'プログラミング']
+		},{
+			id: 102,
+			name: '日本語名2',
+			hobbies: ['料理', '散歩']
+		},{
+			id: 103,
+			name: '日本語名3',
+			hobbies: ['読書', '散歩']
+		}]
+	};
+	$.ajax({
+		type: 'POST',
+		url: './json-mapped-param?' + qstr,
+		dataType: 'json',
+		contentType: 'application/json; charset=UTF-8',
+		data: JSON.stringify(jsondata)
+	})
+	.done(function(data) {
+		$(targetId).text(JSON.stringify(data, null, '\t'));
+	})
+	.fail(function(xhr, status, errorThrown) {
+		alert('error, show console log!');
+		console.log('Status', status);
+		console.log('Error', errorThrown);
+		console.dir(xhr);
+	});
+}
+</script>
+</head>
+<body>
+basic/index.html.(日本語テスト)
+
+<form id="call_ajax_query_form">
+<input type="hidden" name="qp1" value="AAA" />
+<input type="hidden" name="qp2" value="BBB" />
+<input type="hidden" name="qp2" value="CCC" />
+<input type="hidden" name="qp3" value="日本語QUERY" />
+<input type="hidden" name="qp4[日本語]" value="日本語1" />
+<input type="hidden" name="qp4[日本語]" value="日本語2" />
+</form>
+
+<form id="call_ajax_post_form">
+<input type="hidden" name="fp1" value="AAA" />
+<input type="hidden" name="fp2" value="BBB" />
+<input type="hidden" name="fp2" value="CCC" />
+<input type="hidden" name="fp3" value="日本語FORM" />
+<input type="hidden" name="fp4[日本語]" value="日本語1" />
+<input type="hidden" name="fp4[日本語]" value="日本語2" />
+</form>
+
+<hr />
+<h2><a href="#" onclick="call_ajax('POST', './dump-servlet', '#dump-servlet-result'); return false;">HttpServletRequest, HttpSession, Locale, TimeZone, InputStream, HttpMethod のメソッド引数受取と、Thymeleafのデフォルトオブジェクトのダンプ</a></h2>
+<p><a href="#" onclick="$('#dump-servlet-result').html(''); return false;">clear</a></p>
+<div id="dump-servlet-result">result of dump-servlet here.</div> 
+
+<hr />
+<h2><a href="#" onclick="call_ajax('POST', './typical-param', '#typical-param-result'); return false;">@RequestParam, @RequestBody, @CookieValue, @RequestHeader, カスタムフォームBean によるメソッド引数受け取りのデモ</a></h2>
+<p><a href="#" onclick="$('#typical-param-result').html(''); return false;">clear</a></p>
+<div id="typical-param-result">result of typical-param here.</div> 
+
+<hr />
+<h2><a href="#" onclick="call_json_mapped_model('#json-mapped-param-result'); return false;">@RequestBody によるJSONパラメータ to Bean変換 によるメソッド引数受け取りのデモ</a></h2>
+<p><a href="#" onclick="$('#json-mapped-param-result').html(''); return false;">clear</a></p>
+<pre id="json-mapped-param-result">result of json-mapped-param here.</pre> 
+
+<hr />
+<h2>multipartファイルアップロードのデモ</h2>
+<form data-th-action="@{/basic/fileupload-result}" method="post" enctype="multipart/form-data" target="_blank">
+コメント : <input type="text" name="comment" value="comment"/><br />
+画像ファイル1 : <input type="file" name="file1"/><br />
+画像ファイル2 : <input type="file" name="file2"/><br />
+<input type="submit"/>
+</form>
+
+<hr />
+<h2>@ModelAttributeのデモ</h2>
+<ul>
+<li><a data-th-href="@{./modelattr-on-method(id=3)}">メソッドに対する @ModelAttribute のデモ</a></li>
+</ul>
+
+<hr />
+<h2>Set-Cookie</h2>
+<form data-th-action="@{./set-cookie}" target="_blank">
+<table border="1">
+<tr><th>name</th><td><input type="text" name="name" value="c1" /></td></tr>
+<tr><th>value</th><td><input type="text" name="value" value="v1" /></td></tr>
+<tr><th>max-age</th><td><input type="text" name="maxage" value="" /></td></tr>
+<tr><th>domain</th><td><input type="text" name="domain" value="" /></td></tr>
+<tr><th>path</th><td><input type="text" name="path" value="" /></td></tr>
+<tr><th>comment</th><td><input type="text" name="comment" value="" /></td></tr>
+<tr><th>isSecure</th><td><input type="checkbox" name="isSecure" value="true" /></td></tr>
+<tr><th>isHttpOnly</th><td><input type="checkbox" name="isHttpOnly" value="true" /></td></tr>
+<tr><th>delete</th><td><input type="checkbox" name="delete" value="true" /></td></tr>
+<tr><th colspan="2"><input type="submit" /></th></tr>
+</table>
+</form>
+
+<hr />
+<h2>レスポンスカスタマイズのデモ</h2>
+<ul>
+<li><a data-th-href="@{./render-text}" target="_blank">@ResponseBody String によるシンプルな text/plain レスポンス, 日本語含む, デフォルトで Content-Type: text/html;charset=UTF-8 となる。</a></li>
+<li><a data-th-href="@{./render-text-html}" target="_blank">上記に加え、@GetMappingのproducesを変更して Content-Type: text/html;charset=UTF-8 に上書きしている。</a></li>
+<li><a data-th-href="@{./render-image}" target="_blank">@ResponseBody + produces = image/png + byte[] 戻り値による画像出力</a></li>
+<li><a data-th-href="@{./download-image}" target="_blank">@ResponseBody + ResponseEntity, byte[] 戻り値による画像ダウンロード</a></li>
+<li><a data-th-href="@{./download-binary1}" target="_blank">@ResponseBody + produces = application/octet-stream + byte[] 戻り値</a></li>
+<li><a data-th-href="@{./download-binary2}" target="_blank">@ResponseBody + ResponseEntity, byte[] 戻り値によるapplication/octet-stream ファイルダウンロード</a></li>
+<li><a data-th-href="@{./download-text(cs=Shift_JIS)}" target="_blank">@ResponseBody + ResponseEntity, byte[] 戻り値によるShift_JISテキストファイルダウンロード</a></li>
+<li><a data-th-href="@{./download-text(cs=euc-jp)}" target="_blank">@ResponseBody + ResponseEntity, byte[] 戻り値によるeuc-jpテキストファイルダウンロード</a></li>
+<li><a data-th-href="@{./empty-404}" target="_blank">@ResponseBody + ResponseEntity による空の404ステータス</a></li>
+<li><a data-th-href="@{./programmed-404}" target="_blank">@ResponseBody + ResponseEntity によるカスタムレスポンスボディ + 404ステータス</a></li>
+</ul>
+
+<hr />
+<h2>リダイレクト, Servletフォワードのサンプル</h2>
+<p>
+redirect form (basically simple, path and parameter passed.):
+<form th:action="@{/basic/redirect1/100/200(qp1=aaa,qp2=bbb,qp2=ccc,qp3=ddd)}" method="POST">
+<input type="hidden" name="fp1" value="AAA" />
+<input type="hidden" name="fp2" value="BBB" />
+<input type="hidden" name="fp2" value="CCC" />
+<input type="hidden" name="fp3" value="DDD" />
+<input type="submit" value="Path, Query Params &amp; POST form submit" />
+</form>
+</p>
+
+<p>
+<a th:href="@{/basic/redirect2}">
+redirect form (RedirectAttribute : flash-scoped attributes powered by http session)
+</a>
+</p>
+
+<p>
+redirect form (redirect to external absolute url.):
+<form th:action="@{/basic/redirect3/100/200(qp1=aaa,qp2=bbb,qp2=ccc,qp3=ddd)}" method="POST">
+<input type="hidden" name="fp1" value="AAA" />
+<input type="hidden" name="fp2" value="BBB" />
+<input type="hidden" name="fp2" value="CCC" />
+<input type="hidden" name="fp3" value="DDD" />
+<input type="submit" value="Path, Query Params &amp; POST form submit" />
+</form>
+</p>
+
+<p>
+servlet forward form:
+<form th:action="@{/basic/forwarder/100/200(qp1=aaa,qp2=bbb,qp2=ccc,qp3=ddd)}" method="POST">
+<input type="hidden" name="fp1" value="AAA" />
+<input type="hidden" name="fp2" value="BBB" />
+<input type="hidden" name="fp2" value="CCC" />
+<input type="hidden" name="fp3" value="DDD" />
+<input type="submit" value="Path, Query Params &amp; POST form submit" />
+</form>
+</p>
+
+<hr />
+<h2>Locale, TimeZone, メッセージカタログのサンプル</h2>
+<p>
+<ul>
+<li><a th:href="@{/basic/locale_tz_messages}">Locale, TimeZone, Messages</a></li>
+<li><a th:href="@{/basic/change_locale(newLocale=ja)}">Change Locale to ja(Japanese)</a></li>
+<li><a th:href="@{/basic/change_locale(newLocale=zh)}">Change Locale to zh(Chinese)</a></li>
+</ul>
+</p>
+
+<hr />
+<h2><a href="#" onclick="call_ajax('POST', './dump-server-info', '#dump-server-info-result'); return false;">HttpServletRequest, ServletContext, ServerProperties のダンプ</a></h2>
+<p><a href="#" onclick="$('#dump-server-info-result').html(''); return false;">clear</a></p>
+<div id="dump-server-info-result">result of dump-server-info here.</div> 
+
+<hr />
+<h2>logger出力のサンプル</h2>
+<p>
+<ul>
+<li><a th:href="@{/basic/logger-demo(loggerName=logbacktest.logger, count=10)}" target="_blank">logbacktest.logger, count=10</a></li>
+<li><a th:href="@{/basic/logger-demo(loggerName=logbacktest.logger.file1, count=10)}" target="_blank">logbacktest.logger.file1, count=10</a></li>
+<li><a th:href="@{/basic/logger-demo(loggerName=logbacktest.logger.file2, count=10)}" target="_blank">logbacktest.logger.file2, count=10</a></li>
+</ul>
+</p>
+
+</body>
+</html>

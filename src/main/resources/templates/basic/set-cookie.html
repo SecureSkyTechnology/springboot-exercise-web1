@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>set-cookie</title>
+</head>
+<body>
+
+<h3>Cookie発行：パラメータダンプ</h3>
+
+<table border="1">
+<tr><th>name</th><td data-th-text="${param.name[0]}"></td></tr>
+<tr><th>value</th><td data-th-text="${param.value[0]}"></td></tr>
+<tr><th>maxage</th><td data-th-text="${param.maxage[0]}"></td></tr>
+<tr><th>domain</th><td data-th-text="${param.domain[0]}"></td></tr>
+<tr><th>path</th><td data-th-text="${param.path[0]}"></td></tr>
+<tr><th>comment</th><td data-th-text="${param.comment[0]}"></td></tr>
+<tr><th>isSecure</th><td data-th-text="${#httpServletRequest.getParameter('isSecure')}"></td></tr>
+<tr><th>isHttpOnly</th><td data-th-text="${#httpServletRequest.getParameter('isHttpOnly')}"></td></tr>
+<tr><th>delete</th><td data-th-text="${#httpServletRequest.getParameter('delete')}"></td></tr>
+</table>
+
+</body>
+</html>

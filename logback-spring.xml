@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration debug="true">
+  <!-- great reference : http://qiita.com/rubytomato@github/items/93770f827e46cc7e684f -->
+
+  <!-- http://docs.spring.io/spring-boot/docs/1.4.2.RELEASE/reference/htmlsingle/#howto-logging -->
+  <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+  <property name="LOG_DIR" value="./log" />
+  <property name="COMMON_PATTERN" value="%d{ISO8601} [%thread] %level %logger - %msg%n" />
+
+  <appender name="CONSOLE_LOG" class="ch.qos.logback.core.ConsoleAppender">
+    <target>System.err</target>
+    <encoder>
+      <pattern>${COMMON_PATTERN}</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="FILE0" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LOG_DIR}/file0.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+      <fileNamePattern>${LOG_DIR}/file0_%i.log</fileNamePattern>
+        <minIndex>1</minIndex>
+        <maxIndex>5</maxIndex>
+    </rollingPolicy>
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <maxFileSize>1KB</maxFileSize>
+    </triggeringPolicy>
+    <encoder>
+      <pattern>${COMMON_PATTERN}</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="FILE1" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LOG_DIR}/file1.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+      <fileNamePattern>${LOG_DIR}/file1_%i.log</fileNamePattern>
+        <minIndex>1</minIndex>
+        <maxIndex>5</maxIndex>
+    </rollingPolicy>
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <maxFileSize>1KB</maxFileSize>
+    </triggeringPolicy>
+    <encoder>
+      <pattern>${COMMON_PATTERN}</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="FILE2" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LOG_DIR}/file2.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+      <fileNamePattern>${LOG_DIR}/file2_%i.log</fileNamePattern>
+        <minIndex>1</minIndex>
+        <maxIndex>5</maxIndex>
+    </rollingPolicy>
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <maxFileSize>1KB</maxFileSize>
+    </triggeringPolicy>
+    <encoder>
+      <pattern>${COMMON_PATTERN}</pattern>
+    </encoder>
+  </appender>
+
+  <logger name="logbacktest.logger" level="INFO">
+    <appender-ref ref="CONSOLE_LOG"/>
+    <appender-ref ref="FILE0"/>
+  </logger>
+
+  <logger name="logbacktest.logger.file1" level="DEBUG" additivity="false">
+    <appender-ref ref="FILE1"/>
+  </logger>
+
+  <logger name="logbacktest.logger.file2" level="TRACE">
+    <appender-ref ref="FILE2"/>
+  </logger>
+
+</configuration>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>exception-demo/index.html</title>
+</head>
+<body>
+exception-demo/index.html.(日本語テスト)
+
+<h2>0 divide, format binding exception.</h2>
+<form data-th-action="@{./post}" method="POST">
+div : <input type="text" name="div1" value="1" size="10" /> &nbsp;/&nbsp; <input type="text" name="div0" value="1" size="10" /><br />
+<br />
+date : <input type="text" name="dateTime" value="2016-01-23 23:59:59" /><br />
+<input type="submit" />
+</form>
+
+<p data-th-inline="text">
+result:
+div1 : [[${div1}]]<br />
+div0 : [[${div0}]]<br />
+divr : [[${divr}]]<br />
+dateTime : [[${dateTime}]]<br />
+</p>
+
+<h2>CustomException, IOException.</h2>
+<form data-th-action="@{./custom-ex}">
+exception type:<br />
+<label><input type="radio" name="exname" value="forbidden" />forbidden</label><br />
+<label><input type="radio" name="exname" value="conflict" />conflict</label><br />
+<label><input type="radio" name="exname" value="ioex" />IOException</label><br />
+<br />
+<input type="submit" />
+</form>
+
+<h2>Exception inside HandlerIntercept</h2>
+<form data-th-action="@{./intercept-div}" method="POST">
+div : <input type="text" name="i4-div1" value="1" size="10" /> &nbsp;/&nbsp; <input type="text" name="i4-div0" value="1" size="10" /><br />
+<input type="submit" />
+</form>
+
+<h2>IOException inside HandlerIntercpet</h2>
+<p>
+<a data-th-href="@{./intercept-ioex(ioex=true)}">throw IOException</a>
+</p>
+
+<h2>Exception inside Servlet Filter</h2>
+<form data-th-action="@{./filter-div}" method="POST">
+div : <input type="text" name="filter-div1" value="1" size="10" /> &nbsp;/&nbsp; <input type="text" name="filter-div0" value="1" size="10" /><br />
+<input type="submit" />
+</form>
+
+<h2>IOException inside Servlet Filter</h2>
+<p>
+<a data-th-href="@{./filter-ioex(filter-ioex=true)}">throw IOException</a>
+</p>
+
+</body>
+</html>

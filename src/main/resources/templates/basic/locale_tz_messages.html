@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>Locale, TimeZone, Messages</title>
+</head>
+<body>
+
+<p>current locale #{msg.basic.sample1} message: </p>
+<p data-th-text="#{msg.basic.sample1}">message resource</p>
+
+<p>messages using <a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/MessageSource.html" target="_blank">MessageSource</a></p>
+<p data-th-inline="text">msg1 : [[${msg1}]], msg2 : [[${msg2}]]</p>
+
+<a data-th-href="@{/basic/locale_tz_messages}">back to locale_tz_messages.</a><br />
+<a data-th-href="@{/basic/}">back to /basic.</a><br />
+
+<h3><a href="http://docs.oracle.com/javase/jp/8/docs/api/java/util/Locale.html" target="_blank">java.util.Locale#getDefault()</a></h3>
+<table border="1" data-th-object="${defaultLocale}">
+<tr><th>toString()</th><td data-th-text="${defaultLocale}"></td></tr>
+<tr><th>getCountry()</th><td data-th-text="*{country}"></td></tr>
+<tr><th>getLanguage()</th><td data-th-text="*{language}"></td></tr>
+<tr><th>getScript()</th><td data-th-text="*{script}"></td></tr>
+<tr><th>getVariant()</th><td data-th-text="*{variant}"></td></tr>
+<tr><th>getDisplayCountry()</th><td data-th-text="*{displayCountry}"></td></tr>
+<tr><th>getDisplayLanguage()</th><td data-th-text="*{displayLanguage}"></td></tr>
+<tr><th>getDisplayName()</th><td data-th-text="*{displayName}"></td></tr>
+<tr><th>getDisplayScript()</th><td data-th-text="*{displayScript}"></td></tr>
+<tr><th>getDisplayVariant()</th><td data-th-text="*{displayVariant}"></td></tr>
+<tr><th>getISO3Country()</th><td data-th-text="*{iSO3Country}"></td></tr>
+<tr><th>getISO3Language()</th><td data-th-text="*{iSO3Language}"></td></tr>
+</table>
+
+<h3>Locale from @RequestMapping annotation method argument</h3>
+<table border="1" data-th-object="${requestLocale}">
+<tr><th>toString()</th><td data-th-text="${requestLocale}"></td></tr>
+<tr><th>getCountry()</th><td data-th-text="*{country}"></td></tr>
+<tr><th>getLanguage()</th><td data-th-text="*{language}"></td></tr>
+<tr><th>getScript()</th><td data-th-text="*{script}"></td></tr>
+<tr><th>getVariant()</th><td data-th-text="*{variant}"></td></tr>
+<tr><th>getDisplayCountry()</th><td data-th-text="*{displayCountry}"></td></tr>
+<tr><th>getDisplayLanguage()</th><td data-th-text="*{displayLanguage}"></td></tr>
+<tr><th>getDisplayName()</th><td data-th-text="*{displayName}"></td></tr>
+<tr><th>getDisplayScript()</th><td data-th-text="*{displayScript}"></td></tr>
+<tr><th>getDisplayVariant()</th><td data-th-text="*{displayVariant}"></td></tr>
+<tr><th>getISO3Country()</th><td data-th-text="*{iSO3Country}"></td></tr>
+<tr><th>getISO3Language()</th><td data-th-text="*{iSO3Language}"></td></tr>
+</table>
+
+<h3>Locale from <a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/i18n/LocaleContextHolder.html" target="_blank">org.springframework.context.i18n.LocaleContextHolder</a></h3>
+<table border="1" data-th-object="${holderedLocale}">
+<tr><th>toString()</th><td data-th-text="${holderedLocale}"></td></tr>
+<tr><th>getCountry()</th><td data-th-text="*{country}"></td></tr>
+<tr><th>getLanguage()</th><td data-th-text="*{language}"></td></tr>
+<tr><th>getScript()</th><td data-th-text="*{script}"></td></tr>
+<tr><th>getVariant()</th><td data-th-text="*{variant}"></td></tr>
+<tr><th>getDisplayCountry()</th><td data-th-text="*{displayCountry}"></td></tr>
+<tr><th>getDisplayLanguage()</th><td data-th-text="*{displayLanguage}"></td></tr>
+<tr><th>getDisplayName()</th><td data-th-text="*{displayName}"></td></tr>
+<tr><th>getDisplayScript()</th><td data-th-text="*{displayScript}"></td></tr>
+<tr><th>getDisplayVariant()</th><td data-th-text="*{displayVariant}"></td></tr>
+<tr><th>getISO3Country()</th><td data-th-text="*{iSO3Country}"></td></tr>
+<tr><th>getISO3Language()</th><td data-th-text="*{iSO3Language}"></td></tr>
+</table>
+
+<h3><a href="http://docs.oracle.com/javase/jp/8/docs/api/java/util/TimeZone.html" target="_blank">java.util.TimeZone#getDefault()</a></h3>
+<table border="1" data-th-object="${defaultTz}">
+<tr><th>toString()</th><td data-th-text="${defaultTz}"></td></tr>
+<tr><th>getDisplayName()</th><td data-th-text="*{displayName}"></td></tr>
+<tr><th>getDSTSavings()</th><td data-th-text="*{dSTSavings}"></td></tr>
+<tr><th>getID()</th><td data-th-text="*{iD}"></td></tr>
+<tr><th>getRawOffset()</th><td data-th-text="*{rawOffset}"></td></tr>
+</table>
+
+<h3>TimeZone from @RequestMapping annotation method argument</h3>
+<table border="1" data-th-object="${requestTz}">
+<tr><th>toString()</th><td data-th-text="${requestTz}"></td></tr>
+<tr><th>getDisplayName()</th><td data-th-text="*{displayName}"></td></tr>
+<tr><th>getDSTSavings()</th><td data-th-text="*{dSTSavings}"></td></tr>
+<tr><th>getID()</th><td data-th-text="*{iD}"></td></tr>
+<tr><th>getRawOffset()</th><td data-th-text="*{rawOffset}"></td></tr>
+</table>
+
+<h3>TimeZone from <a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/i18n/LocaleContextHolder.html" target="_blank">org.springframework.context.i18n.LocaleContextHolder</a></h3>
+<table border="1" data-th-object="${holderedTz}">
+<tr><th>toString()</th><td data-th-text="${holderedTz}"></td></tr>
+<tr><th>getDisplayName()</th><td data-th-text="*{displayName}"></td></tr>
+<tr><th>getDSTSavings()</th><td data-th-text="*{dSTSavings}"></td></tr>
+<tr><th>getID()</th><td data-th-text="*{iD}"></td></tr>
+<tr><th>getRawOffset()</th><td data-th-text="*{rawOffset}"></td></tr>
+</table>
+
+</body>
+</html>

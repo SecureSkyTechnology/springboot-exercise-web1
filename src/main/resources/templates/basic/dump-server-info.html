@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+</head>
+<body>
+
+<h3>HttpServletRequest, ServletContext, ServerProperties のダンプ</h3>
+
+<th:block th:fragment="result">
+
+<h4>ServletRequest</h4>
+<table border="1">
+<th:block data-th-object="${sr}">
+<tr><th colspan="2" align="left"><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequest.html" target="_blank">javax.servlet.ServletRequest</a></th></tr>
+<tr><th>ServletRequest.getCharacterEncoding()</th><td data-th-text="*{characterEncoding}"></td></tr>
+<tr><th>ServletRequest.getContentLength()</th><td data-th-text="*{contentLength}"></td></tr>
+<tr><th>ServletRequest.getContentType()</th><td data-th-text="*{contentType}"></td></tr>
+<tr><th>ServletRequest.getLocale()</th><td data-th-text="*{locale}"></td></tr>
+<tr>
+<th>ServletRequest.getLocales()</th>
+<td><ol><li data-th-each="loc : ${T(java.util.Collections).list(sr.locales)}" data-th-text="${loc}"></li></ol></td>
+</tr>
+<tr><th>ServletRequest.getLocalAddr()</th><td data-th-text="*{localAddr}"></td></tr>
+<tr><th>ServletRequest.getLocalName()</th><td data-th-text="*{localName}"></td></tr>
+<tr><th>ServletRequest.getLocalPort()</th><td data-th-text="*{localPort}"></td></tr>
+<tr><th>ServletRequest.getProtocol()</th><td data-th-text="*{protocol}"></td></tr>
+<tr><th>ServletRequest.getRemoteAddr()</th><td data-th-text="*{remoteAddr}"></td></tr>
+<tr><th>ServletRequest.getRemoteHost()</th><td data-th-text="*{remoteHost}"></td></tr>
+<tr><th>ServletRequest.getRemotePort()</th><td data-th-text="*{remotePort}"></td></tr>
+<tr><th>ServletRequest.getScheme()</th><td data-th-text="*{scheme}"></td></tr>
+<tr><th>ServletRequest.getServerName()</th><td data-th-text="*{serverName}"></td></tr>
+<tr><th>ServletRequest.getServerPort()</th><td data-th-text="*{serverPort}"></td></tr>
+<tr><th>ServletRequest.isSecure()</th><td data-th-text="*{secure}"></td></tr>
+<tr><th>ServletRequest.isAsyncSupported()</th><td data-th-text="*{asyncSupported}"></td></tr>
+<tr><th colspan="2" align="left">ServletRequest.getAttributeNames()</th></tr>
+<tr data-th-each="attr : ${T(java.util.Collections).list(sr.attributeNames)}">
+<th data-th-text="${attr}"></th>
+<td data-th-text="${sr.getAttribute(attr)}"></td>
+</tr>
+<tr><th colspan="2" align="left">ServletRequest.getParameterMap()</th></tr>
+<tr data-th-each="parameter : ${sr.parameterMap}">
+<th data-th-text="${parameter.key}"></th>
+<td><ol><li data-th-each="iter : ${parameter.value}" data-th-text="${iter}"></li></ol></td>
+</tr>
+<tr><th colspan="2" align="left"><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html" target="_blank">javax.servlet.http.HttpServletRequest</a></th></tr>
+<tr><th>HttpServletRequest.getAuthType()</th><td data-th-text="*{authType}"></td></tr>
+<tr><th>HttpServletRequest.getContextPath()</th><td data-th-text="*{contextPath}"></td></tr>
+<tr><th>HttpServletRequest.getMethod()</th><td data-th-text="*{method}"></td></tr>
+<tr><th>HttpServletRequest.getPathInfo()</th><td data-th-text="*{pathInfo}"></td></tr>
+<tr><th>HttpServletRequest.getPathTranslated()</th><td data-th-text="*{pathTranslated}"></td></tr>
+<tr><th>HttpServletRequest.getQueryString()</th><td data-th-text="*{queryString}"></td></tr>
+<tr><th>HttpServletRequest.getRemoteUser()</th><td data-th-text="*{remoteUser}"></td></tr>
+<tr><th>HttpServletRequest.getRequestedSessionId()</th><td data-th-text="*{requestedSessionId}"></td></tr>
+<tr><th>HttpServletRequest.getRequestURI()</th><td data-th-text="*{requestURI}"></td></tr>
+<tr><th>HttpServletRequest.getRequestURL()</th><td data-th-text="*{requestURL}"></td></tr>
+<tr><th>HttpServletRequest.getServletPath()</th><td data-th-text="*{servletPath}"></td></tr>
+<tr><th>HttpServletRequest.isRequestedSessionIdFromCookie()</th><td data-th-text="*{requestedSessionIdFromCookie}"></td></tr>
+<tr><th>HttpServletRequest.isRequestedSessionIdFromURL()</th><td data-th-text="*{requestedSessionIdFromURL}"></td></tr>
+<tr><th>HttpServletRequest.isRequestedSessionIdValid()</th><td data-th-text="*{requestedSessionIdValid}"></td></tr>
+<tr>
+<th>ServletRequest.getCookies()</th>
+<td><ol><li data-th-each="cookie : *{cookies}" data-th-inline="text">[[${cookie.name}]] : [[${cookie.value}]]</li></ol></td>
+</tr>
+<tr>
+<th>ServletRequest.getHeaderNames()</th>
+<td><ol><li data-th-each="header : ${T(java.util.Collections).list(sr.headerNames)}" data-th-inline="text">[[${header}]] : [[${sr.getHeader(header)}]]</li></ol></td>
+</tr>
+</th:block>
+</table>
+
+<h4>ServletContext</h4>
+<table border="1">
+<th:block data-th-object="${sc}">
+<tr><th colspan="2" align="left"><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContext.html" target="_blank">javax.servlet.ServletContext</a></th></tr>
+<tr><th>ServletContext.getContextPath()</th><td data-th-text="*{contextPath}"></td></tr>
+<tr><th>ServletContext.getEffectiveMajorVersion()</th><td data-th-text="*{effectiveMajorVersion}"></td></tr>
+<tr><th>ServletContext.getEffectiveMinorVersion()</th><td data-th-text="*{effectiveMajorVersion}"></td></tr>
+<tr><th>ServletContext.getMajorVersion()</th><td data-th-text="*{majorVersion}"></td></tr>
+<tr><th>ServletContext.getMinorVersion()</th><td data-th-text="*{minorVersion}"></td></tr>
+<tr><th>ServletContext.getServerInfo()</th><td data-th-text="*{serverInfo}"></td></tr>
+<tr><th>ServletContext.getServletContextName()</th><td data-th-text="*{servletContextName}"></td></tr>
+<tr><th>ServletContext.getVirtualServerName()</th><td data-th-text="*{virtualServerName}"></td></tr>
+<tr><th colspan="2" align="left">ServletContext.getAttributeNames()</th></tr>
+<tr data-th-each="attr : ${T(java.util.Collections).list(sc.attributeNames)}">
+<th data-th-text="${attr}"></th>
+<td data-th-text="${sc.getAttribute(attr)}"></td>
+</tr>
+<tr><th colspan="2" align="left">ServletContext.getInitParameterNames()</th></tr>
+<tr data-th-each="name : ${T(java.util.Collections).list(sc.initParameterNames)}">
+<th data-th-text="${name}"></th>
+<td data-th-text="${sc.getInitParameter(name)}"></td>
+</tr>
+</th:block>
+</table>
+
+<h4>ServerProperties</h4>
+<table border="1">
+<th:block data-th-object="${sp}">
+<tr><th colspan="2" align="left"><a href="http://docs.spring.io/spring-boot/docs/1.4.2.RELEASE/api/org/springframework/boot/autoconfigure/web/ServerProperties.html" target="_blank">org.springframework.boot.autoconfigure.web.ServerProperties</a></th></tr>
+<tr><th>ServerProperties.getAddress()</th><td data-th-text="*{address}"></td></tr>
+<tr><th>ServerProperties.getConnectionTimeout()</th><td data-th-text="*{connectionTimeout}"></td></tr>
+<tr><th>ServerProperties.getContextPath()</th><td data-th-text="*{contextPath}"></td></tr>
+<tr><th>ServerProperties.getDisplayName()</th><td data-th-text="*{displayName}"></td></tr>
+<tr><th>ServerProperties.getMaxHttpHeaderSize()</th><td data-th-text="*{maxHttpHeaderSize}"></td></tr>
+<tr><th>ServerProperties.getMaxHttpPostSize()</th><td data-th-text="*{maxHttpPostSize}"></td></tr>
+<tr><th>ServerProperties.getOrder()</th><td data-th-text="*{order}"></td></tr>
+<tr><th>ServerProperties.getPort()</th><td data-th-text="*{port}"></td></tr>
+<tr><th>ServerProperties.getServerHeader()</th><td data-th-text="*{serverHeader}"></td></tr>
+<tr><th>ServerProperties.getServletMapping()</th><td data-th-text="*{servletMapping}"></td></tr>
+<tr><th>ServerProperties.getServletPath()</th><td data-th-text="*{servletPath}"></td></tr>
+<tr><th>ServerProperties.getServletPrefix()</th><td data-th-text="*{servletPrefix}"></td></tr>
+<tr><th>ServerProperties.isUseForwardHeaders()</th><td data-th-text="*{useForwardHeaders}"></td></tr>
+<tr><th colspan="2" align="left">ServerProperties.getContextParameters()</th></tr>
+<tr data-th-each="parameter : ${sp.contextParameters}">
+<th data-th-text="${parameter.key}"></th>
+<td data-th-text="${parameter.value}"></td>
+</tr>
+</th:block>
+</table>
+
+</th:block>
+
+</body>
+</html>

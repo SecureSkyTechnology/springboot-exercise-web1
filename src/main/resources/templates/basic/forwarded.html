@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>result of servlet forward form</title>
+</head>
+<body>
+
+<h3>path parameter</h3>
+<table border="1">
+<tr><th>pathp1</th><td th:text="${pathp1}">pathp1</td></tr>
+<tr><th>pathp2</th><td th:text="${pathp2}">pathp2</td></tr>
+</table>
+
+<h3>query parameter</h3>
+<table border="1" th:object="${requestForm}">
+<tr><th>qp1</th><td th:text="*{qp1}">qp1</td></tr>
+<tr><th>qp2</th><td><ul><li th:each="qp2Item : *{qp2}" th:text="${qp2Item}">qp2Item</li></ul></td></tr>
+<tr><th>qp3</th><td th:text="*{qp3}">qp3</td></tr>
+<tr><th>fp1</th><td th:text="*{fp1}">fp1</td></tr>
+<tr><th>fp2</th><td><ul><li th:each="fp2Item : *{fp2}" th:text="${fp2Item}">fp2Item</li></ul></td></tr>
+<tr><th>fp3</th><td th:text="*{fp3}">fp3</td></tr>
+<tr><th>addp1</th><td th:text="${addp1}">addp1</td></tr>
+<tr><th>addp2</th><td><ul><li th:each="addp2Item : ${addp2}" th:text="${addp2Item}">addp2Item</li></ul></td></tr>
+<tr><th>addp3</th><td th:text="${addp3}">addp3</td></tr>
+</table>
+
+</body>
+</html>

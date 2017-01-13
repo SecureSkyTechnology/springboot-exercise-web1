@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<title layout:title-pattern="$DECORATOR_TITLE - $CONTENT_TITLE">Title-in-layout</title>
+
+<!-- Bootstrap -->
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"  th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" />
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="//oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+
+<h1>Layout No.2</h1>
+<p><a href="https://github.com/ultraq/thymeleaf-layout-dialect" target="_blank">Thymeleaf Layout Dialect</a></p>
+
+<div class="container">
+  <th:block layout:fragment="content">
+    <p>page content template in layout.</p>
+  </th:block>
+</div><!-- /.container -->
+
+<footer>
+  <p>&copy; 2016 SecureSky-Tech, Inc.</p>
+  <th:block layout:fragment="custom-footer">custom footer template in layout.</th:block>
+</footer>  
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="//code.jquery.com/jquery-3.1.1.min.js" th:src="@{/webjars/jquery/3.1.1-1/jquery.min.js}"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+</body>
+</html>

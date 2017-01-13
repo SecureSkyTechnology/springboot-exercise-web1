@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>USER role アクセス可メニュー</title>
+<meta name="_csrf" data-th-content="${_csrf.token}" />
+<meta name="_csrf_parameter" data-th-content="${_csrf.parameterName}" />
+<meta name="_csrf_header" data-th-content="${_csrf.headerName}" />
+</head>
+<body>
+
+<h2>USER role アクセス可メニュー</h2>
+
+demo links:
+<ul>
+<li><a data-th-href="@{/security-demo/menu}">ログイン後共通メニュー</a></li>
+<li><a data-th-href="@{/security-demo/menu/user}">USER role アクセス可メニュー</a></li>
+<li><a data-th-href="@{/security-demo/menu/admin}">ADMIN role アクセス可メニュー</a></li>
+</ul>
+
+<p>
+<img data-th-src="@{/image/sample.png}" title="permitted for all image" /> &nbsp;|&nbsp;
+<img data-th-src="@{/image-user/user-role.png}" title="user role" /> &nbsp;|&nbsp;
+<img data-th-src="@{/image-admin/admin-role.png}" title="admin role" />
+</p>
+
+<form data-th-action="@{/security-demo/dologout}" method="POST">
+<input type="submit" value="logout" />
+</form>
+
+</body>
+</html>

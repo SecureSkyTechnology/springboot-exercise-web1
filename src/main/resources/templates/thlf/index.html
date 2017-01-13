@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Thymeleaf Example</title>
+</head>
+<body>
+
+<ul>
+<li><a target="_blank" href="http://www.thymeleaf.org/">Thymeleaf</a></li>
+<li><a target="_blank" href="http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html">Thymeleaf 2.1 Document (Spring Boot 1.4 default)</a></li>
+<li><a target="_blank" href="http://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html">Thymeleaf 3.0 Document</a></li>
+<li><a target="_blank" href="http://www.thymeleaf.org/doc/tutorials/2.1/thymeleafspring.html">Thymeleaf 2.1 + Spring Document (Spring Boot 1.4 default)</a></li>
+<li><a target="_blank" href="http://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html">Thymeleaf 3.0 + Spring Document</a></li>
+</ul>
+
+<hr />
+<table border="1">
+<tr><th>HTML Auto Escape</th><td th:text="${htmlstr}"></td></tr>
+<tr><th>Disable HTML Auto Escape</th><td th:utext="${htmlstr}"></td></tr>
+<tr><th>HTML Attribute Output(typical id attr)</th><td th:id="${htmlstr}"></td></tr>
+<tr><th>HTML Attribute Output(custom attr)</th><td th:attr="data-x-custom=${htmlstr}"></td></tr>
+<tr><th>Message Property1</th><td th:text="#{msg.sample1}"></td></tr>
+<tr><th>Message Property2 (with args)</th><td th:text="#{msg.sample2('var1', ${str1})}"></td></tr>
+<tr><th>Message Property3 (not exist)</th><td th:text="#{msg.sample3}"></td></tr>
+<tr><th>String Concat</th><td th:text="'good afternoon, ' + ${str1} + ', ' + ${str2}"></td></tr>
+<tr><th>Date Formatting</th><td th:text="${#dates.format(date, 'yyyy-MM-dd HH:mm:ss')}"></td></tr>
+<tr><th>Number Formatting</th><td th:text="${#numbers.formatInteger(num, 3, 'COMMA')}"></td></tr>
+<tr><th>Spring Bean (Environment.getActiveProfiles())</th><td><ul><li th:each="profile : ${@environment.getDefaultProfiles()}" th:text="${profile}"></li></ul></td></tr>
+<tr><th>Spring Bean (Environment.getDefaultProfiles())</th><td><ul><li th:each="profile : ${@environment.getDefaultProfiles()}" th:text="${profile}"></li></ul></td></tr>
+<tr><th>Spring Bean (Environment.getProperty('server.port'))</th><td th:text="${@environment.getProperty('server.port')}"></td></tr>
+<tr><th>Spring Bean (Environment.getProperty('server.contextPath'))</th><td th:text="${@environment.getProperty('server.contextPath')}"></td></tr>
+</table>
+
+<ul>
+<li th:each="so : ${sampleObjects1}" th:object="${so}" th:inline="text">ID=[[*{id}]], NAME=[[*{name}]], BIRTH=[[${#dates.format(so.birthday, 'yyyy-MM-dd')}]], AGE=[[*{age}]]</li>
+</ul>
+
+<hr />
+<h4>Thymeleaf comment block : <a href="http://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#comments-and-blocks" target="_blank">11. Comments and Blocks</a></h4>
+<!-- HTML level comment : not parsed, but remaining in result html. template logic will be published, bad pattern :(
+<p th:text="${htmlstr}">aaa</p>
+-->
+
+<!--/* comment out : removed from result html. */-->
+
+<!--/* remaining in template itself, but removed from result html.-->
+<p th:text="${htmlstr}">aaa</p>
+<!--*/-->
+<!--/*-->
+<p th:text="${htmlstr}">aaa</p>
+<!--*/-->
+<!-- /* --><!-- pre/post space breaks thymeleaf block comment :P -->
+<p th:text="${htmlstr}">aaa</p>
+<!-- */ -->
+
+<hr />
+<h4>&quot;data&quot; prefix usage:</h4>
+<!--/* "data-" prefix usage */-->
+<table border="1">
+<tr data-th-each="so : ${sampleObjects2}" data-th-object="${so.value}">
+<th>KEY</th><td data-th-text="${so.key}"></td>
+<th>ID</th><td data-th-text="*{id}"></td>
+<th>NAME</th><td data-th-text="*{name}"></td>
+<th>BIRTH</th><td data-th-text="${#dates.format(so.value.birthday, 'yyyy-MM-dd')}"></td>
+<th>AGE</th><td data-th-text="*{age}"></td>
+</tr>
+</table>
+
+<hr />
+<h4>Example of <a href="http://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#link-urls" target="_blank">4.4 Link URLs</a></h4>
+<ul>
+<li><a data-th-href="@{/thlf/{pathparam}/404.html(pathparam=${htmlstr},qp1='val1',qp2='val2')}">dummy 404 url</a></li>
+<li><a data-th-href="@{//example.com/(qp1='val1',qp2='val2')}">scheme free url</a></li>
+<li><a data-th-href="@{https://example.com/(qp1='val1',qp2='val2')}">absolute url</a></li>
+</ul>
+
+<hr />
+<p>Fragment Demo</p>
+<ul>
+<li><a data-th-href="@{/thlf/fragments(isAdmin=false)}">Fragment Demo(isAdmin=false)</a></li>
+<li><a data-th-href="@{/thlf/fragments(isAdmin=true)}">Fragment Demo(isAdmin=true)</a></li>
+<li><a data-th-href="@{/thlf/fragment-only}">Fragment Demo(return fragment parts)</a></li>
+</ul>
+
+<hr />
+<p>Thymeleaf Layout Dialect Demo</p> 
+<ul>
+<li><a href="https://github.com/ultraq/thymeleaf-layout-dialect" target="_blank">Thymeleaf Layout Dialect</a></li>
+<li><a data-th-href="@{/thlf/layout-demo(layout='thlf/layout1')}">layout1</a></li>
+<li><a data-th-href="@{/thlf/layout-demo(layout='thlf/layout2')}">layout2</a></li>
+</ul>
+
+</body>
+</html>

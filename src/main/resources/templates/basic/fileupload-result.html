@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>ファイルアップロード結果</title>
+</head>
+<body>
+
+<h3>ファイルアップロード結果</h3>
+<p data-th-inline="text">コメント： '[[${param.comment[0]}]]'</p>
+
+画像1:
+<table border="1">
+<tr><th>getContentType()</th><td data-th-text="${file1.contentType}"></td></tr>
+<tr><th>getSize()</th><td data-th-text="${file1.size}"></td></tr>
+<tr><th>getName()</th><td data-th-text="${file1.name}"></td></tr>
+<tr><th>getSubmittedFileName()</th><td data-th-text="${file1.submittedFileName}"></td></tr>
+<tr>
+<th>getHeaderNames() + getHeader()</th>
+<td>
+<ol>
+<li data-th-each="header : ${file1.headerNames}" data-th-text="${file1.getHeader(header)}"></li>
+</ol>
+</td>
+</tr>
+</table>
+<img data-th-src="@{'data:' + ${file1.getContentType()} + ';base64,' + ${file1base64}}" />
+<hr />
+画像2:
+<table border="1">
+<tr><th>getContentType()</th><td data-th-text="${file2.contentType}"></td></tr>
+<tr><th>getSize()</th><td data-th-text="${file2.size}"></td></tr>
+<tr><th>getName()</th><td data-th-text="${file2.name}"></td></tr>
+<tr><th>getSubmittedFileName()</th><td data-th-text="${file2.submittedFileName}"></td></tr>
+<tr>
+<th>getHeaderNames() + getHeader()</th>
+<td>
+<ol>
+<li data-th-each="header : ${file2.headerNames}" data-th-text="${file2.getHeader(header)}"></li>
+</ol>
+</td>
+</tr>
+</table>
+<img data-th-src="@{'data:' + ${file2.getContentType()} + ';base64,' + ${file2base64}}" />
+
+
+
+</body>
+</html>

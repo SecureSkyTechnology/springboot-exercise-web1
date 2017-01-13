@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+</head>
+<body>
+
+<h3>@RequestMapping のメソッド引数で受け取った HttpServletRequest, HttpSession, Locale, TimeZone, InputStream, HttpMethod</h3>
+
+<th:block th:fragment="result">
+
+<h4>HttpServletRequest (パラメータをサンプリング表示)</h4>
+<table border="1">
+<tr data-th-each="parameter : ${argRequest.parameterMap}">
+<th data-th-text="${parameter.key}"></th>
+<td><ol><li data-th-each="iter : ${parameter.value}" data-th-text="${iter}"></li></ol></td>
+</tr>
+</table>
+
+<h4>HttpSession</h4>
+<table border="1">
+<th:block data-th-object="${argSession}">
+<tr><th>HttpSession.getCreationTime()</th><td data-th-text="*{creationTime}"></td></tr>
+<tr><th>HttpSession.getId()</th><td data-th-text="*{id}"></td></tr>
+<tr><th>HttpSession.getLastAccessedTime()</th><td data-th-text="*{lastAccessedTime}"></td></tr>
+<tr><th>HttpSession.getMaxInactiveInterval()</th><td data-th-text="*{maxInactiveInterval}"></td></tr>
+<tr><th>HttpSession.isNew()</th><td data-th-text="*{isNew()}"></td></tr>
+<tr>
+<th>HttpSession.getAttributeNames()</th>
+<td><ol><li data-th-each="attr : ${T(java.util.Collections).list(argSession.attributeNames)}" data-th-inline="text">[[${attr}]] : [[${argSession.getAttribute(attr)}]]</li></ol></td>
+</tr>
+</th:block>
+</table>
+
+<h4>Locale, TimeZone, HttpMethod</h4>
+<table border="1">
+<tr><th>HttpMethod</th><td data-th-text="${argHttpMethod}"></td></tr>
+<tr><th>Locale</th><td data-th-text="${argLocale}"></td></tr>
+<tr><th>TimeZone</th><td data-th-text="${argTz}"></td></tr>
+</table>
+
+<h4>InputStream を文字列に変換</h4>
+[<p data-th-text="${argInputStream}"></p>]
+
+<h3><a href="http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html#appendix-a-expression-basic-objects" target="_blank">some thymeleaf basic objects</a></h3>
+
+<h4>${#ctx}</h4>
+<table border="1">
+<tr><th>${#ctx.locale}</th><td data-th-text="${#ctx.locale}"></td></tr>
+<tr><th>${#ctx.variables}</th><td data-th-text="${#ctx.variables}"></td></tr>
+<tr><th>${#ctx.applicationAttributes}</th><td data-th-text="${#ctx.applicationAttributes}"></td></tr>
+<tr><th>${#ctx.httpServletRequest}</th><td data-th-text="${#ctx.httpServletRequest}"></td></tr>
+<tr><th>${#ctx.httpServletResponse}</th><td data-th-text="${#ctx.httpServletResponse}"></td></tr>
+<tr><th>${#ctx.httpSession}</th><td data-th-text="${#ctx.httpSession}"></td></tr>
+<tr><th>${#ctx.requestAttributes}</th><td data-th-text="${#ctx.requestAttributes}"></td></tr>
+<tr><th>${#ctx.requestParameters}</th><td data-th-text="${#ctx.requestParameters}"></td></tr>
+<tr><th>${#ctx.servletContext}</th><td data-th-text="${#ctx.servletContext}"></td></tr>
+<tr><th>${#ctx.sessionAttributes}</th><td data-th-text="${#ctx.sessionAttributes}"></td></tr>
+</table>
+
+<h4>${#locale}</h4>
+<p data-th-text="${#locale}"></p>
+
+<h4>${#vars}</h4>
+<table border="1">
+<tr data-th-each="iter : ${#vars}">
+<th data-th-text="${iter.key}"></th>
+<td data-th-text="${iter.value}"></td>
+</tr>
+</table>
+
+<h4>${param}</h4>
+<table border="1">
+<tr data-th-each="iter : ${param}">
+<th data-th-text="${iter.key}"></th>
+<td><ol><li data-th-each="iter2 : ${iter.value}" data-th-text="${iter2}"></li></ol></td>
+</tr>
+</table>
+
+<h4>${session}</h4>
+<table border="1">
+<tr data-th-each="iter : ${session}">
+<th data-th-text="${iter.key}"></th>
+<td data-th-text="${iter.value}"></td>
+</tr>
+</table>
+
+<h4>${application}</h4>
+<table border="1">
+<tr data-th-each="iter : ${application}">
+<th data-th-text="${iter.key}"></th>
+<td data-th-text="${iter.value}"></td>
+</tr>
+</table>
+
+<h4>${#httpServletRequest}</h4>
+<table border="1">
+<th:block data-th-object="${#httpServletRequest}">
+<tr><th colspan="2" align="left"><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequest.html" target="_blank">javax.servlet.ServletRequest</a></th></tr>
+<tr><th>${#httpServletRequest.characterEncoding}</th><td data-th-text="*{characterEncoding}"></td></tr>
+<tr><th>${#httpServletRequest.contentLength}</th><td data-th-text="*{contentLength}"></td></tr>
+<tr><th>${#httpServletRequest.contentType}</th><td data-th-text="*{contentType}"></td></tr>
+<tr><th>${#httpServletRequest.locale}</th><td data-th-text="*{locale}"></td></tr>
+<tr>
+<th>${#httpServletRequest.locales}</th>
+<td><ol><li data-th-each="loc : ${T(java.util.Collections).list(#httpServletRequest.locales)}" data-th-text="${loc}"></li></ol></td>
+</tr>
+<tr><th>${#httpServletRequest.localAddr}</th><td data-th-text="*{localAddr}"></td></tr>
+<tr><th>${#httpServletRequest.localName}</th><td data-th-text="*{localName}"></td></tr>
+<tr><th>${#httpServletRequest.localPort}</th><td data-th-text="*{localPort}"></td></tr>
+<tr><th>${#httpServletRequest.protocol}</th><td data-th-text="*{protocol}"></td></tr>
+<tr><th>${#httpServletRequest.remoteAddr}</th><td data-th-text="*{remoteAddr}"></td></tr>
+<tr><th>${#httpServletRequest.remoteHost}</th><td data-th-text="*{remoteHost}"></td></tr>
+<tr><th>${#httpServletRequest.remotePort}</th><td data-th-text="*{remotePort}"></td></tr>
+<tr><th>${#httpServletRequest.scheme}</th><td data-th-text="*{scheme}"></td></tr>
+<tr><th>${#httpServletRequest.serverName}</th><td data-th-text="*{serverName}"></td></tr>
+<tr><th>${#httpServletRequest.serverPort}</th><td data-th-text="*{serverPort}"></td></tr>
+<tr><th>${#httpServletRequest.isSecure()}</th><td data-th-text="*{secure}"></td></tr>
+<tr><th>${#httpServletRequest.isAsyncSupported()}</th><td data-th-text="*{asyncSupported}"></td></tr>
+<tr><th colspan="2" align="left">${#httpServletRequest.attributeNames}</th></tr>
+<tr data-th-each="attr : ${T(java.util.Collections).list(#httpServletRequest.attributeNames)}">
+<th data-th-text="${attr}"></th>
+<td data-th-text="${#httpServletRequest.getAttribute(attr)}"></td>
+</tr>
+<tr><th colspan="2" align="left">${#httpServletRequest.parameterMap}</th></tr>
+<tr data-th-each="parameter : ${#httpServletRequest.parameterMap}">
+<th data-th-text="${parameter.key}"></th>
+<td><ol><li data-th-each="iter : ${parameter.value}" data-th-text="${iter}"></li></ol></td>
+</tr>
+<tr><th colspan="2" align="left"><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html" target="_blank">javax.servlet.http.HttpServletRequest</a></th></tr>
+<tr><th>${#httpServletRequest.authType}</th><td data-th-text="*{authType}"></td></tr>
+<tr><th>${#httpServletRequest.contextPath}</th><td data-th-text="*{contextPath}"></td></tr>
+<tr><th>${#httpServletRequest.method}</th><td data-th-text="*{method}"></td></tr>
+<tr><th>${#httpServletRequest.pathInfo}</th><td data-th-text="*{pathInfo}"></td></tr>
+<tr><th>${#httpServletRequest.pathTranslated}</th><td data-th-text="*{pathTranslated}"></td></tr>
+<tr><th>${#httpServletRequest.queryString}</th><td data-th-text="*{queryString}"></td></tr>
+<tr><th>${#httpServletRequest.remoteUser}</th><td data-th-text="*{remoteUser}"></td></tr>
+<tr><th>${#httpServletRequest.requestedSessionId}</th><td data-th-text="*{requestedSessionId}"></td></tr>
+<tr><th>${#httpServletRequest.requestURI}</th><td data-th-text="*{requestURI}"></td></tr>
+<tr><th>${#httpServletRequest.requestURL}</th><td data-th-text="*{requestURL}"></td></tr>
+<tr><th>${#httpServletRequest.servletPath}</th><td data-th-text="*{servletPath}"></td></tr>
+<tr><th>${#httpServletRequest.isRequestedSessionIdFromCookie()}</th><td data-th-text="*{requestedSessionIdFromCookie}"></td></tr>
+<tr><th>${#httpServletRequest.isRequestedSessionIdFromURL()}</th><td data-th-text="*{requestedSessionIdFromURL}"></td></tr>
+<tr><th>${#httpServletRequest.isRequestedSessionIdValid()}</th><td data-th-text="*{requestedSessionIdValid}"></td></tr>
+<tr>
+<th>${#httpServletRequest.cookies}</th>
+<td><ol><li data-th-each="cookie : *{cookies}" data-th-inline="text">[[${cookie.name}]] : [[${cookie.value}]]</li></ol></td>
+</tr>
+<tr>
+<th>${#httpServletRequest.headerNames}</th>
+<td><ol><li data-th-each="header : ${T(java.util.Collections).list(#httpServletRequest.headerNames)}" data-th-inline="text">[[${header}]] : [[${#httpServletRequest.getHeader(header)}]]</li></ol></td>
+</tr>
+</th:block>
+</table>
+
+<h4>${#httpSession}</h4>
+<table border="1">
+<th:block data-th-object="${#httpSession}">
+<tr><th>${#httpSession.creationTime}</th><td data-th-text="*{creationTime}"></td></tr>
+<tr><th>${#httpSession.id}</th><td data-th-text="*{id}"></td></tr>
+<tr><th>${#httpSession.lastAccessedTime}</th><td data-th-text="*{lastAccessedTime}"></td></tr>
+<tr><th>${#httpSession.maxInactiveInterval}</th><td data-th-text="*{maxInactiveInterval}"></td></tr>
+<tr><th>${#httpSession.isNew()}</th><td data-th-text="*{isNew()}"></td></tr>
+<tr>
+<th>${#httpSession.attributeNames}</th>
+<td><ol><li data-th-each="attr : ${T(java.util.Collections).list(#httpSession.attributeNames)}" data-th-inline="text">[[${attr}]] : [[${#httpSession.getAttribute(attr)}]]</li></ol></td>
+</tr>
+</th:block>
+</table>
+
+<h4>Scoped Bean Demo</h4>
+<table border="1">
+<tr><th>ApplicationScopedBean1</th><td data-th-text="${asBean1}"></td></tr>
+<tr><th>RequestScopedBean1</th><td data-th-text="${rsBean1}"></td></tr>
+<tr><th>SessionScopedBean1</th><td data-th-text="${ssBean1}"></td></tr>
+</table>
+
+</th:block>
+
+</body>
+</html>

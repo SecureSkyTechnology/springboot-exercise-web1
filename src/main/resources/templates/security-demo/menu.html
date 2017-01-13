@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="utf-8" />
+<meta name="_csrf" data-th-content="${_csrf.token}" />
+<meta name="_csrf_parameter" data-th-content="${_csrf.parameterName}" />
+<meta name="_csrf_header" data-th-content="${_csrf.headerName}" />
+<title>ログイン後共通メニュー</title>
+<script th:src="@{/webjars/jquery/3.1.1-1/jquery.min.js}"></script>
+<script>
+function call_ajax() {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	var customHeaders = {
+		'X-Custom-Foo' : 'Hello, Ajax',
+		'X-Custom-Bar' : 'Hello, jQuery'
+	};
+	customHeaders[header] = token;
+	$.ajax({
+		type: 'POST',
+		url: './data-ajax',
+		dataType: 'text',
+		headers: customHeaders,
+		xhrFields: {
+			withCredentials: true
+		},
+		contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+		processData: false,
+		data: ''
+	})
+	.done(function(data) {
+		$('#csrf-protected-ajax-result').html(data);
+	})
+	.fail(function(xhr, status, errorThrown) {
+		alert('error, show console log!');
+		console.log('Status', status);
+		console.log('Error', errorThrown);
+		console.dir(xhr);
+	});
+}
+</script>
+</head>
+<body>
+
+<h2>ログイン後共通メニュー</h2>
+
+<table border="1" sec:authorize="isAuthenticated()">
+<tr><th>auth principal username</th><td sec:authentication="name"></td></tr>
+<tr><th>auth principal LoginUserDetail.nickname</th><td sec:authentication="principal.nickname"></td></tr>
+<tr><th>auth principal LoginUserDetail.age</th><td sec:authentication="principal.age"></td></tr>
+<tr><th>auth principal LoginUserDetail.birthDay</th><td sec:authentication="principal.birthDay"></td></tr>
+<tr><th>auth principal roles</th><td sec:authentication="principal.authorities"></td></tr>
+<tr sec:authorize="hasRole('ROLE_ADMIN')">
+<th>thymeleaf-extras-springsecurity</th>
+<td>hasRole('ROLE_ADMIN')</td>
+</tr>
+<tr sec:authorize="hasRole('ROLE_USER')">
+<th>thymeleaf-extras-springsecurity</th>
+<td>hasRole('ROLE_USER')</td>
+</tr>
+</table>
+
+<br />
+
+<table border="1">
+<tr><th>CSRFトークン</th><td data-th-text="${_csrf.token}"></td></tr>
+<tr><th>CSRFパラメータ名</th><td data-th-text="${_csrf.parameterName}"></td></tr>
+<tr><th>CSRFヘッダー名</th><td data-th-text="${_csrf.headerName}"></td></tr>
+</table>
+
+<br />
+
+demo links:
+<ul>
+<li><a data-th-href="@{/security-demo/menu}">ログイン後共通メニュー</a></li>
+<li><a data-th-href="@{/security-demo/menu/user}">USER role アクセス可メニュー</a></li>
+<li><a data-th-href="@{/security-demo/menu/admin}">ADMIN role アクセス可メニュー</a></li>
+</ul>
+
+<p>
+<img data-th-src="@{/image/sample.png}" title="permitted for all image" /> &nbsp;|&nbsp;
+<img data-th-src="@{/image-user/user-role.png}" title="user role" /> &nbsp;|&nbsp;
+<img data-th-src="@{/image-admin/admin-role.png}" title="admin role" />
+</p>
+
+<hr />
+<h2><a href="#" onclick="call_ajax(); return false;">CSRF対策されたAjax呼び出し</a></h2>
+<p><a href="#" onclick="$('#csrf-protected-ajax-result').html(''); return false;">clear</a></p>
+<div id="csrf-protected-ajax-result">result of data-ajax here.</div> 
+
+<hr />
+<h2>パスワード変更</h2>
+
+<form data-th-action="@{/security-demo/change-password}" data-th-object="${form}" method="post">
+
+<ul data-th-if="${#fields.hasAnyErrors()}">
+<li style="color: red" data-th-each="err : ${#fields.allErrors()}" data-th-text="${err}"></li>
+</ul>
+
+<table border="1">
+<tr>
+<th data-th-text="#{form.currentPassword}"></th>
+<td><input type="text" name="currentPassword" /></td>
+</tr>
+<tr>
+<th data-th-text="#{form.newPassword1}"></th>
+<td><input type="text" name="newPassword1" /></td>
+</tr>
+<tr>
+<th data-th-text="#{form.newPassword2}"></th>
+<td><input type="text" name="newPassword2" /></td>
+</tr>
+</table>
+<input type="submit" value="変更"/><br />
+</form>
+
+<hr />
+<form data-th-action="@{/security-demo/dologout}" method="POST">
+<input type="submit" value="logout" />
+</form>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>result of redirect form (RedirectAttribute : flash-scoped attributes powered by http session).</title>
+</head>
+<body>
+
+<h3>flash-scoped values (automatically merged.)</h3>
+<table border="1">
+<tr><th>flashp1</th><td th:text="${flashp1}">flashp1</td></tr>
+<tr><th>flashp2</th><td th:text="${flashp2}">flashp2</td></tr>
+<tr><th>mvmflashp1</th><td th:text="${mvmflashp1}">mvm-flashp1</td></tr>
+<tr><th>mvmflashp2</th><td th:text="${mvmflashp2}">mvm-flashp2</td></tr>
+</table>
+
+</body>
+</html>

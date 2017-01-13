@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>JdbcTemplate Example</title>
+</head>
+<body>
+
+<h2>list of TINYITEMS table</h2>
+<table border="1">
+<thead>
+<tr>
+<th>ID</th>
+<th>NAME</th>
+<th>PRICE</th>
+<th>CREATED_AT</th>
+<th>UPDATED_AT</th>
+</tr>
+</thead>
+<tr data-th-each="ti : ${tinyItems}" data-th-object="${ti}">
+<td data-th-text="*{id}"></td>
+<td data-th-text="*{name}"></td>
+<td data-th-text="*{price}"></td>
+<td data-th-text="${#dates.format(ti.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+<td data-th-text="${#dates.format(ti.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+</tr>
+</table>
+
+<h2>add new item</h2>
+
+<form data-th-object="${tinyItemForm}" method="post">
+
+<ul data-th-if="${#fields.hasAnyErrors()}">
+<li style="color: red" data-th-each="err : ${#fields.allErrors()}" data-th-text="${err}"></li>
+</ul>
+
+<table border="1">
+<tr>
+<th data-th-text="#{tinyItem.name}"></th>
+<td>
+<input type="text" data-th-field="*{name}" />
+<th:block data-th-if="${#fields.hasErrors('name')}">
+<br /><span style="color: red" data-th-errors="*{name}" />
+</th:block>
+</td>
+</tr>
+<tr>
+<th data-th-text="#{tinyItem.price}"></th>
+<td>
+<input type="text" data-th-field="*{price}" th:errorclass="fieldError" />
+<th:block data-th-if="${#fields.hasErrors('price')}">
+<br /><span style="color: red" data-th-errors="*{price}" />
+</th:block>
+</td>
+</tr>
+</table>
+<input type="submit" /><br />
+</form>
+
+</body>
+</html>

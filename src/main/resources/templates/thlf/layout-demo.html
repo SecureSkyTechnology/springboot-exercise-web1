@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="${layoutName}">
+<head>
+<title th:text="${contentTitle}">Content-Title</title>
+
+<meta name="description" content="Thymeleaf Layout Dialect Example" />
+
+<!-- Custom styles for this template -->
+<link href="/css/starter-template.css" th:href="@{/css/starter-template.css}" rel="stylesheet" />
+</head>
+<body>
+
+<th:block layout:fragment="content">
+  <p th:inline="text">Contents, [[${str1}]], [[${str2}]], [[${str3}]]</p>
+</th:block>
+
+<footer>
+  <th:block layout:fragment="custom-footer">
+  <p th:inline="text">Footer, [[${str1}]], [[${str2}]], [[${str3}]]</p>
+  </th:block>
+</footer>
+</body>
+</html>

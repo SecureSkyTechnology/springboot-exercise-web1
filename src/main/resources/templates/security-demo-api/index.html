@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="utf-8" />
+<meta name="_csrf" data-th-content="${_csrf.token}" />
+<meta name="_csrf_parameter" data-th-content="${_csrf.parameterName}" />
+<meta name="_csrf_header" data-th-content="${_csrf.headerName}" />
+<title>Spring Security API Demo</title>
+<script th:src="@{/webjars/jquery/3.1.1-1/jquery.min.js}"></script>
+<script>
+function call_ajax(targetMethod, targetPath, targetId, formId) {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	var customHeaders = {
+		'X-Custom-Foo' : 'Hello, Ajax',
+		'X-Custom-Bar' : 'Hello, jQuery'
+	};
+	customHeaders[header] = token;
+	var fstr = '';
+	if (formId) {
+		fstr = $(formId).serialize();
+	}
+	$.ajax({
+		type: targetMethod,
+		url: targetPath,
+		dataType: 'text',
+		headers: customHeaders,
+		xhrFields: {
+			withCredentials: true
+		},
+		contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+		processData: false,
+		data: fstr
+	})
+	.done(function(resbody, status, xhr) {
+		$(targetId).html(resbody);
+		console.log(resbody, status, xhr.getResponseHeader('X-My-Api-Result'));
+		var newtoken = xhr.getResponseHeader('X-My-Api-New-CsrfToken');
+		if (newtoken) {
+			$('meta[name="_csrf"]').attr('content', newtoken);
+		}
+	})
+	.fail(function(xhr, status, errorThrown) {
+		alert('Status Code:' + xhr.status + '\r\nX-My-Api-Result:' + xhr.getResponseHeader('X-My-Api-Result') + '\r\nshow console log for details');
+		console.log('Status', status);
+		console.log('Error', errorThrown);
+		console.dir(xhr);
+	});
+}
+</script>
+</head>
+<body>
+<h2>REST API login, authorization controll, logout demos.</h2>
+<hr />
+<form id="login_form">
+login username : <input type="text" name="login_user" value="" /><br />
+login password : <input type="text" name="login_pwd" value="" /><br />
+<label><input type="checkbox" th:name="${@environment.getProperty('custom.spring-security.remember-me.parameter', 'rememberme')}" /> user remember-me</label><br />
+<input type="submit" value="login" onclick="call_ajax('POST', './login', '#login-result', '#login_form'); return false;" />
+</form>
+<p>
+<a href="#" onclick="$('#login-result').html(''); return false;">clear</a>
+<div id="login-result">(...)</div>
+</p>
+
+<hr />
+<p>
+<a href="#" onclick="call_ajax('POST', './regen-csrftoken', '#regen-csrftoken-result'); return false;">POST to ./regen-csrftoken</a><br />
+<a href="#" onclick="call_ajax('GET',  './regen-csrftoken', '#regen-csrftoken-result'); return false;">GET  to ./regen-csrftoken</a><br />
+<a href="#" onclick="$('#regen-csrftoken-result').html(''); return false;">clear</a>
+</p>
+<div id="regen-csrftoken-result">(...)</div>
+
+<hr />
+<p>
+<a href="#" onclick="call_ajax('POST', './common', '#common-result'); return false;">POST to ./common</a><br />
+<a href="#" onclick="call_ajax('GET',  './common', '#common-result'); return false;">GET  to ./common</a><br />
+<a href="#" onclick="$('#common-result').html(''); return false;">clear</a>
+</p>
+<div id="common-result">(...)</div>
+
+<hr />
+<p>
+<a href="#" onclick="call_ajax('POST', './user', '#user-result'); return false;">POST to ./user</a><br />
+<a href="#" onclick="call_ajax('GET',  './user', '#user-result'); return false;">GET  to ./user</a><br />
+<a href="#" onclick="$('#user-result').html(''); return false;">clear</a>
+</p>
+<div id="user-result">(...)</div>
+
+<hr />
+<p>
+<a href="#" onclick="call_ajax('POST', './admin', '#admin-result'); return false;">POST to ./admin</a><br />
+<a href="#" onclick="call_ajax('GET',  './admin', '#admin-result'); return false;">GET  to ./admin</a><br />
+<a href="#" onclick="$('#admin-result').html(''); return false;">clear</a>
+</p>
+<div id="admin-result">(...)</div>
+
+<hr />
+<p>
+ログアウトに成功したら、手動で画面リロードしてください。<br />
+<a href="#" onclick="call_ajax('POST', './logout', '#logout-result'); return false;">POST to ./logout</a><br />
+<a href="#" onclick="call_ajax('GET',  './logout', '#logout-result'); return false;">GET  to ./logout</a><br />
+<a href="#" onclick="$('#logout-result').html(''); return false;">clear</a>
+</p>
+<div id="logout-result">(...)</div>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>attr-demo/index.html</title>
+</head>
+<body>
+attr-demo/index.html.(日本語テスト)
+
+<p><a data-th-href="@{/attr-demo/update}">update session attributes</a></p>
+<p><a data-th-href="@{/attr-demo/clear}">clear modeled session attributes</a></p>
+<p><a data-th-href="@{/attr-demo/invalidate}">call HttpSession#invalidate()</a></p>
+
+<h2>@RequestAttribute</h2>
+<dl>
+<dt>@RequestAttribute MyAttrBean myAttrBean</dt>
+<dd data-th-text="${myAttrBean}"></dd>
+<dt>@RequestAttribute("rb2") MyAttrBean rb2</dt>
+<dd data-th-text="${rb2}"></dd>
+<dt>@RequestAttribute(name = "rb3", required = false) MyAttrBean rb3</dt>
+<dd data-th-text="${rb3}"></dd>
+</dl>
+
+<h2>@ModelAttribute</h2>
+<dl>
+<dt>@ModelAttribute("mb1") : method annotation</dt>
+<dd data-th-text="${mb1}"></dd>
+<dt>@ModelAttribute("mb2") : method annotation + method parameter</dt>
+<dd data-th-text="${mb2}"></dd>
+<dt>@ModelAttribute("mb3") : method parameter</dt>
+<dd data-th-text="${mb3}"></dd>
+<dt>@ModelAttribute("mb4") : method annotation + @SessionAttributes</dt>
+<dd data-th-text="${mb4}"></dd>
+<dt>@ModelAttribute("mb5") : method annotation + @SessionAttributes</dt>
+<dd data-th-text="${mb5}"></dd>
+</dl>
+
+<h2>@SessionAttribute</h2>
+<dl>
+<dt>@SessionAttribute("sb1")</dt>
+<dd data-th-text="${session.myAttrBean}"></dd>
+<dt>@SessionAttribute("sb2")</dt>
+<dd data-th-text="${session.sb2}"></dd>
+</dl>
+
+</body>
+</html>

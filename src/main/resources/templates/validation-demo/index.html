@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="_csrf" data-th-content="${_csrf.token}" />
+<meta name="_csrf_parameter" data-th-content="${_csrf.parameterName}" />
+<meta name="_csrf_header" data-th-content="${_csrf.headerName}" />
+<title>validation-demo/index.html</title>
+<script data-th-src="@{/webjars/jquery/3.1.1-1/jquery.min.js}"></script>
+<script>
+function call_json_mapped_model(targetId) {
+	var reqjson = {};
+	$($('#userForm').serializeArray()).each(function(i, v) {
+		reqjson[v.name] = v.value;
+	});
+	var senddata = {
+		name: $()
+	}
+	$.ajax({
+		type: 'POST',
+		url: './rest',
+		dataType: 'json',
+		contentType: 'application/json; charset=UTF-8',
+		data: JSON.stringify(reqjson)
+	})
+	.done(function(data) {
+		$(targetId).text(JSON.stringify(data, null, '\t'));
+	})
+	.fail(function(xhr, status, errorThrown) {
+		alert('error, show console log!');
+		console.log('Status', status);
+		console.log('Error', errorThrown);
+		console.dir(xhr);
+	});
+}
+</script>
+</head>
+<body>
+validation-demo/index.html.(日本語テスト)
+
+<h2>Typical Validation Demo</h2>
+
+<form data-th-object="${form}" method="post" id="userForm">
+
+<ul data-th-if="${#fields.hasAnyErrors()}">
+<li style="color: red" data-th-each="err : ${#fields.allErrors()}" data-th-text="${err}"></li>
+</ul>
+
+<table border="1">
+<tr>
+<th data-th-text="#{form.name}"></th>
+<td>
+<input type="text" data-th-field="*{name}" th:errorclass="fieldError" />
+<th:block data-th-if="${#fields.hasErrors('name')}">
+<br /><span style="color: red" data-th-errors="*{name}" />
+</th:block>
+</td>
+</tr>
+<tr>
+<th data-th-text="#{form.age}"></th>
+<td>
+<input type="text" data-th-field="*{age}" th:errorclass="fieldError" />
+<th:block data-th-if="${#fields.hasErrors('age')}">
+<br /><span style="color: red" data-th-errors="*{age}" />
+</th:block>
+</td>
+</tr>
+<tr>
+<th data-th-text="#{form.phone1}"></th>
+<td>
+<input type="text" data-th-field="*{phone1}" />
+<th:block data-th-if="${#fields.hasErrors('phone1')}">
+<br /><span style="color: red" data-th-errors="*{phone1}" />
+</th:block>
+</td>
+</tr>
+<tr>
+<th data-th-text="#{form.phone2}"></th>
+<td>
+<input type="text" data-th-field="*{phone2}" />
+<th:block data-th-if="${#fields.hasErrors('phone2')}">
+<br /><span style="color: red" data-th-errors="*{phone2}" />
+</th:block>
+</td>
+</tr>
+<tr>
+<th data-th-text="#{form.email1}"></th>
+<td>
+<input type="text" data-th-field="*{email1}" />
+<th:block data-th-if="${#fields.hasErrors('email1')}">
+<br /><span style="color: red" data-th-errors="*{email1}" />
+</th:block>
+</td>
+</tr>
+<tr>
+<th data-th-text="#{form.email2}"></th>
+<td>
+<input type="text" data-th-field="*{email2}" />
+<th:block data-th-if="${#fields.hasErrors('email2')}">
+<br /><span style="color: red" data-th-errors="*{email2}" />
+</th:block>
+</td>
+</tr>
+<tr>
+<th data-th-text="#{form.birthDay}"></th>
+<td>
+<input type="text" data-th-field="*{birthDay}" />
+<th:block data-th-if="${#fields.hasErrors('birthDay')}">
+<br /><span style="color: red" data-th-errors="*{birthDay}" />
+</th:block>
+</td>
+</tr>
+<tr>
+<th data-th-text="#{form.registeredDay}"></th>
+<td>
+<input type="text" data-th-field="*{registeredDay}" />
+<th:block data-th-if="${#fields.hasErrors('registeredDay')}">
+<br /><span style="color: red" data-th-errors="*{registeredDay}" />
+</th:block>
+</td>
+</tr>
+</table>
+<input type="submit" /><br />
+<p><a href="#" onclick="call_json_mapped_model('#json-mapped-param-result'); return false;">@RequestBody によるJSONパラメータ to Bean変換 によるメソッド引数受け取りのデモ</a></p>
+<p><a href="#" onclick="$('#json-mapped-param-result').html(''); return false;">clear</a></p>
+<pre id="json-mapped-param-result">result of json-mapped-param here.</pre> 
+</form>
+
+</body>
+</html>

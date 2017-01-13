@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+</head>
+<body>
+
+<h3>メソッドに対する @ModelAttribute のデモ</h3>
+
+<h4>@ModelAttribute AutoPopulatedModel1</h4>
+<p data-th-inline="text">id=[[${autoPopulatedModel1.id}]], name=[[${autoPopulatedModel1.name}]], age=[[${autoPopulatedModel1.age}]]</p>
+
+<h4>@ModelAttribute("model1List") List of AutoPopulatedModel1</h4>
+<ul>
+<li data-th-each="iter : ${model1List}" data-th-object="${iter}" data-th-inline="text">id=[[*{id}]], name=[[*{name}]], age=[[*{age}]]</li>
+</ul>
+
+<h4>@ModelAttribute void + Model</h4>
+<p data-th-inline="text">model1 : id=[[${model1.id}]], name=[[${model1.name}]], age=[[${model1.age}]]</p>
+<p data-th-inline="text">model2 : id=[[${model2.id}]], name=[[${model2.name}]], age=[[${model2.hobbies}]]</p>
+
+</body>
+</html>

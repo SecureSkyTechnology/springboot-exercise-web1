@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>misc/index.html foldered template</title>
+</head>
+<body>
+misc/index.html.(日本語テスト)
+
+<h2>Environment, ApplicationArguments demo</h2>
+<pre>
+ex:
+$ java -jar target/xxxxx.jar --foo.bar=xxx --foo.baz=a1,a2,a3,a4 aaa bbb ccc
+</pre>
+
+<table border="1">
+<tr><th colspan="2" align="left">Environment, Profile, Property access demo</th></tr>
+<tr>
+<th>activeProfiles1</th>
+<td><ol><li data-th-each="prof : ${activeProfiles1}" data-th-text="${prof}"></li></ol></td>
+</tr>
+<tr>
+<th>defaultProfiles1</th>
+<td><ol><li data-th-each="prof : ${defaultProfiles1}" data-th-text="${prof}"></li></ol></td>
+</tr>
+<tr>
+<th>activeProfiles2</th>
+<td><ol><li data-th-each="prof : ${activeProfiles2}" data-th-text="${prof}"></li></ol></td>
+</tr>
+<tr>
+<th>defaultProfiles2</th>
+<td><ol><li data-th-each="prof : ${defaultProfiles2}" data-th-text="${prof}"></li></ol></td>
+</tr>
+<tr><th>foo_bar</th><td data-th-text="${foo_bar}"></td></tr>
+<tr><th>foo_baz</th><td data-th-text="${foo_baz}"></td></tr>
+<tr><th colspan="2" align="left">ApplicationArguments access demo</th></tr>
+<tr>
+<th>getOptionNames()</th>
+<td><ul><li data-th-each="opt : ${appArgs.optionNames}" data-th-inline="text">[[${opt}]] - [[${appArgs.getOptionValues(opt)}]]</li></ul></td>
+</tr>
+<tr>
+<th>getNonOptionArgs()</th>
+<td><ol><li data-th-each="opt : ${appArgs.nonOptionArgs}" data-th-text="${opt}"></li></ol></td>
+</tr>
+<tr>
+<th>getSourceArgs()</th>
+<td><ol><li data-th-each="opt : ${appArgs.sourceArgs}" data-th-text="${opt}"></li></ol></td>
+</tr>
+</table>
+
+<h2>MyIntercept3 demo</h2>
+<a data-th-href="@{/misc/intercept3}" target="_blank">demo</a>
+
+<h2>Custom Servlet demo</h2>
+<a data-th-href="@{/servlet/myservlet}" target="_blank">demo</a>
+
+</body>
+</html>
