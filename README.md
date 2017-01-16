@@ -38,11 +38,11 @@ or
 * http://localhost:8080/sb1/my-h2-console/
  * h2db の Webコンソール。Basic認証をかけているため、 `h2admin`, パスワード `password` でログイン。
  * 使用するJDBCのURLについては、 `application.properties` 中の `spring.datasource.url` 参照。
- * `production` profileで起動したときは無効になります。
+ * production profileで起動したときは無効になります。
 * http://localhost:8081/actuator-manage/(各 Actuator Endpoint)
  * Basic認証をかけているため、 `actadmin`, パスワード `password` でログイン。
 
-デフォルトのprofileは `default` です。profileを変更したり、使用するh2dbを変更したい場合は以下のように環境変数を調整します。
+デフォルトのprofileは default です。profileを変更したり、使用するh2dbを変更したい場合は以下のように環境変数を調整します。
 
 ```
 export SPRING_PROFILES_ACTIVE=production
@@ -54,69 +54,103 @@ java ... -jar target/springboot-exercise-web1-0.0.1-SNAPSHOT.jar
 
 ## 主な練習内容
 
-### `sbe.web1.mvc` パッケージ : Spring Framework, Web関連
+### sbe.web1.mvc パッケージ : Spring Framework, Web関連
 
-* `BasicController` : Spring Framework MVCの基本の練習
+* `/basic/`, BasicController : Spring Framework MVCの基本の練習
  * `@Controller`, `@RestController`, `@RequestMapping`, `@GetMapping`
- * メソッド引数による各種リクエストパラメータ・環境情報・Servlet関連オブジェクト(`HttpServletRequest/Response`, `HttpSession`, `ServletContext`) の取得
+ * メソッド引数による各種リクエストパラメータ・環境情報・Servlet関連オブジェクト(HttpServletRequest/Response, HttpSession, ServletContext) の取得
  * `@ResponseBody`, `@RequestBody` によるJSONリクエスト/レスポンス, 任意形式のレスポンスの処理
  * ファイルアップロード処理
- * 手動による任意の `Set-Cookie` 発行
+ * 手動による任意の Set-Cookie 発行
  * リダイレクト, フォワード処理
- * `Locale` と `MessageSource` のJavaコード内での取得
+ * Locale と MessageSource のJavaコード内での取得
+ * LocaleChangeInterceptor による Locale と messages.properties の切り替え
  * ロギングの練習 (slf4j + logback利用, プロジェクトルート直下の `logback-spring.xml`, `logback.xml` も参照)
-* `AttrDemoController`
+* `/attr-demo/`, AttrDemoController
  * `@ModelAttribute`, `@RequestAttribute`, `@SessionAttribute` の練習
-* `ThymeleafSampleController` : Thymeleaf の練習
- * Thymeleaf + Spring での基本的な使い方の練習(`Model`, デフォルトオブジェクトの取得, リンクの生成, 条件分岐とループ処理, コメントアウト)
- * Thymeleaf テンプレート中からの `MessageSource` 取得, `Environment` によるプロファイルとプロパティの取得
+* `/thlf/`, ThymeleafSampleController : Thymeleaf の練習
+ * Thymeleaf + Spring での基本的な使い方の練習(Model, デフォルトオブジェクトの取得, リンクの生成, 条件分岐とループ処理, コメントアウト)
+ * Thymeleaf テンプレート中からの MessageSource 取得, Environment によるプロファイルとプロパティの取得
  * fragment の練習, layout の練習
-* `ValidationDemoController` : Validation の練習
+* `/validation-demo/`, ValidationDemoController : Validation の練習
  * 基本的な Validation アノテーションの練習
  * 単項目のカスタム Validation アノテーション作成の練習
  * 複数項目のカスタム Validation アノテーション作成の練習
  * Web API (`@RestController`, `@ResponseBody + @RequestBody` ) での入力エラーをJSONに変換する練習
-* `ExceptionDemoController` : 例外の取扱とエラーページのカスタマイズの練習
+* `/exception-demo/`, ExceptionDemoController : 例外の取扱とエラーページのカスタマイズの練習
  * コントローラのメソッド内で発生した例外の扱い
  * リクエストパラメータのBinding時の例外の扱い
- * `HandlerInterceptor` 内で発生した例外の扱い
- * `Servlet Filter` 内で発生した例外の扱い
+ * HandlerInterceptor 内で発生した例外の扱い
+ * Servlet Filter 内で発生した例外の扱い
  * Tomcat などの組み込みコンテナのデフォルトエラー画面のカスタマイズ
-  * `application.properties` の `server.error.path` プロパティに注目 -> `sbe.web1.MyErrorController` コントローラへの連携
+  * `application.properties` の `server.error.path` プロパティに注目 -> sbe.web1.MyErrorController コントローラへの連携
  * 例外クラスに応じたエラー画面の切り替え : `sbe.web1.MyExceptionHandler` 参照
-* `JdbcTemplateDemoController` : JdbcTemplate の練習
-* `MiscSampleController`
- * Controller の Javaコードからの `ApplicationContext`, `Environment`, `ApplicationArguments` インスタンスの取得と操作の練習
+* `/jdbc/`, JdbcTemplateDemoController
+ * JdbcTemplate の練習
+* `/misc/`, MiscSampleController
+ * Controller の Javaコードからの ApplicationContext, Environment, ApplicationArguments インスタンスの取得と操作の練習
  * profile, プロパティの取り出しの練習
- * `MyIntercept3`, 独自追加した `MyServlet` を動かすURLリンク
-* `SecurityDemoController`, `SecurityDemoApiController`
+ * MyIntercept3, 独自追加した MyServlet を動かすURLリンク
+* `/security-demo/`, SecurityDemoController, `/security-demo-api/`, SecurityDemoApiController
  * Spring Security の練習(後述)
 
-### `sbe.web1` パッケージ直下 + 他 : TIPS
+### sbe.web1 パッケージ直下 + 他 : TIPS
 
-* `MyApplication`
- * `HttpServletRequest`, `ServletContext`, `ServerProperties` のダンプ出力メソッドの練習
-* `MyContextEventListener`
+* MyApplication
+ * HttpServletRequest, ServletContext, ServerProperties のダンプ出力メソッドの練習
+* IndexController
+ * webjarを使ったjqueryをThymeleafのテンプレートで利用する練習
+ * Spring Security でのログインタイムアウト, CSRFエラー画面の練習
+* MyContextEventListener
  * Contextのライフサイクルイベントの観察の練習
-* `MySecurityEventListener`
+* MySecurityEventListener
  * Spring Security で発行されるイベントの観察の練習
-* `MyWebMvcConfigurerAdapter`
- * `Locale` をCookieに保存する `CookieLocaleResolver` の練習
- * 明示的に `DataSource` をBean定義する練習
- * `tomcat-catalina-jmx-remote` によりコンテナ設定でJMX RMI RegistryPort/ServerPort を固定する練習
- * `sbe.web1.interceptors` パッケージ以下の `HandlerInterceptor` の登録
-* `MyWebSecurityConfig`
+* MyWebMvcConfigurerAdapter
+ * Locale をCookieに保存する CookieLocaleResolver の練習
+ * 明示的に DataSource をBean定義する練習
+ * tomcat-catalina-jmx-remote によりコンテナ設定でJMX RMI RegistryPort/ServerPort を固定する練習
+ * sbe.web1.interceptors パッケージ以下の HandlerInterceptor の登録
+* MyWebSecurityConfig
  * Spring Security の練習(後述)
 
-* `sbe.web1.runner` パッケージ以下
- * `ApplicationRunner` の練習
- * `CommandLineRunner` の練習
+* sbe.web1.runner パッケージ以下
+ * ApplicationRunner の練習
+ * CommandLineRunner の練習
 
-* `sbe.web1.servlet` パッケージ以下
+* sbe.web1.servlet パッケージ以下
  * 独自の Servlet, Servlet Filter, ServletContextListener, HttpSessionListener, HttpSessionAttributeListener の練習
- 
+
+* src/main/resources/db/ 以下
+ * flyway migrationの練習
+ * Spring Boot による schema.sql, data.sql の練習(`application.properties` 中の `spring.datasource.initialize` 参照。)
+
+### Spring Security の練習
+
+* sbe.web1.MyWebSecurityConfig : 以下の5種類の認証設定を混在させるデモ
+ * h2db の Web コンソールに対してBasic認証
+ * actuator の各エンドポイントに対してBaisc認証
+ * `/security-demo/basic-auth` に対してBaisc認証
+ * `/security-demo-api/` に対してDBを使ったフォーム認証
+ * `/security-demo/` に対してDBを使ったフォーム認証
+
+* `/security-demo-api/` の詳細
+ * Web API用にログイン時にJSONでユーザ情報を返したり、ステータスコードで認証系のエラー状態を返せるようカスタマイズ
+ * In-Memoryを使ったRemember-Me
+ * `/security-demo-api/regen-csrftoken` へのアクセスでCSRFトークンを再生成してJSONで返すデモ
+ * CSRFトークンエラー時のレスポンスのカスタマイズ
+ * ログアウト時により細かくオプションを指定してセッションID Cookieを削除できるようカスタマイズ
+ * レスポンスヘッダのカスタマイズ
+
+* `/security-demo/` の詳細
+ * DBを使ったRemember-Me
+ * CSRFトークンエラー時のレスポンスのカスタマイズ
+ * ログアウト時により細かくオプションを指定してセッションID Cookieを削除できるようカスタマイズ
+ * Spring Security がサポートしている、セキュリティ系のレスポンスヘッダーのカスタマイズ
+ * 初期化データ用の暗号化パスワード生成のデモ
+ * src/main/resources/static 以下の静的リロースに対する認可チェックのカスタマイズ
+
 ### 開発, 運用関連
 
 * Spring Boot の Actuator 組み込みの練習 (ポートを分離, Context Path 設定, 独自Basic認証設定, `shutdown` Endpoint の有効化)
-* `spring-boot-devtools` 導入による、STS上で保存 -> 即時リブートによるインクリメンタル開発の練習 + jarビルド時には除外する設定組み込み
-* JMX接続受付 + `tomcat-catalina-jmx-remote` 導入によるJMX RMI RegistryPort/ServerPort の固定 : `MyWebMvcConfigurerAdapter` 参照。
+* spring-boot-devtools 導入による、STS上で保存 -> 即時リブートによるインクリメンタル開発の練習 + jarビルド時には除外する設定組み込み
+* JMX接続受付 + tomcat-catalina-jmx-remote 導入によるJMX RMI RegistryPort/ServerPort の固定 : MyWebMvcConfigurerAdapter 参照。
