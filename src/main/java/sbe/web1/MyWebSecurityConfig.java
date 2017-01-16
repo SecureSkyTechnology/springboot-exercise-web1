@@ -384,9 +384,13 @@ public class MyWebSecurityConfig {
             csrfTokenRepository.setHeaderName("X-My-Custom-Csrf-Token");
             http.csrf()
                     .ignoringAntMatchers(
-                            "/basic/**",
+                            "/",
                             "/attr-demo/**",
+                            "/basic/**",
+                            "/exception-demo/**",
+                            "/misc/**",
                             "/jdbc/**",
+                            "/thlf/**",
                             "/validation-demo/**")
                     .csrfTokenRepository(csrfTokenRepository);
 
