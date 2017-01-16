@@ -201,3 +201,29 @@ Web記事
 * Spring Boot の Actuator 組み込みの練習 (ポートを分離, Context Path 設定, 独自Basic認証設定, `shutdown` Endpoint の有効化)
 * spring-boot-devtools 導入による、STS上で保存 -> 即時リブートによるインクリメンタル開発の練習 + jarビルド時には除外する設定組み込み
 * JMX接続受付 + tomcat-catalina-jmx-remote 導入によるJMX RMI RegistryPort/ServerPort の固定 : MyWebMvcConfigurerAdapter 参照。
+
+## TBD : 検証残項目
+
+* 組み込みServlet Containerでなく、warビルド + standalone containerにdeployのパターンで、Servlet/ServletFilter/各種Listener系で Spring のDI機能は本当に使えるのか？
+
+* Thymeleaf関連
+ * 属性値でエスケープ無しで出力したい場合は？
+ * 実体参照に変換する機能はサポートされてる？
+ * Apache Tiles を使ったレイアウト
+ * 外部ライブラリは用いず、fragment と interceptor を組み合わせたレイアウト機構 : http://blog.codeleak.pl/2013/11/thymeleaf-template-layouts-in-spring.html
+
+* Spring Security 関連
+ * user/passowrd + 独自コードのプラスアルファ認証
+ * OAuth
+ * LDAP認証
+ * 2-factor認証
+ * 多重ログイン禁止のサポート状況
+ * パスワードを忘れた場合の再発行機能
+ * ユーザ名やロールを変えた場合のセッション中のAuthentication情報の更新
+ * remember-me のトークン管理の実体の詳細調査
+ * remember-me でのDB管理での、ゴミ掃除処理のサポート状況
+ * 認可のACL機構
+
+* JPA全般
+
+* JSPビュー全般
