@@ -2,6 +2,9 @@
 Spring Framework, Spring Boot を使ったWebアプリケーションの練習その1
 
 ## 開発環境, ビルド, 実行方法
+
+Spring Boot : 1.4.2.RELEASE (2017-01時点, 詳細はpom.xml参照)
+
 JDK : jdk1.8.0_92, 64bit
 
 STS:
@@ -51,6 +54,50 @@ export SPRING_DATASOURCE_URL=jdbc:h2:tcp://localhost:8182/test2;DB_CLOSE_DELAY=-
 export SPRING_DATASOURCE_USERNAME=sa
 java ... -jar target/springboot-exercise-web1-0.0.1-SNAPSHOT.jar
 ```
+
+## 参考資料
+
+Spring 公式
+
+* Docs
+ * https://spring.io/docs/reference
+
+Thymeleaf 公式
+
+* Tutorial: Using Thymeleaf
+ * http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html
+* Tutorial: Thymeleaf + Spring
+ * http://www.thymeleaf.org/doc/tutorials/2.1/thymeleafspring.html
+* Thymeleaf
+ * http://www.thymeleaf.org/
+
+書籍
+
+* Spring Framework 4 プログラミング入門｜書籍情報｜秀和システム
+ * http://www.shuwasystem.co.jp/products/7980html/4156.html
+* Spring Boot プログラミング入門｜書籍情報｜秀和システム
+ * http://www.shuwasystem.co.jp/products/7980html/4565.html
+* Spring徹底入門 Spring FrameworkによるJavaアプリケーション開発（株式会社NTTデータ） ｜ 翔泳社の本
+ * http://www.shoeisha.co.jp/book/detail/9784798142470
+
+Web記事
+
+* Spring Bootハンズオン
+ * http://jsug-spring-boot-handson.readthedocs.io/en/latest/index.html
+* [随時更新]SpringBoot(with Thymeleaf)チートシート - Qiita
+ * http://qiita.com/uzresk/items/31a4585f7828c4a9334f
+* Spring-Bootの設定プロパティと環境変数 - Qiita
+ * http://qiita.com/NewGyu/items/d51f527c7199b746c6b6
+* Spring Boot 使い方メモ - Qiita
+ * http://qiita.com/opengl-8080/items/05d9490d6f0544e2351a
+* Spring MVC(+Spring Boot)上でのリクエスト共通処理の実装方法を理解する - Qiita
+ * http://qiita.com/kazuki43zoo/items/757b557c05f548c6c5db
+* Spring Framework (Spring Boot)のTips - Qiita
+ * http://qiita.com/rubytomato@github/items/d5c68a95900d52cbd5f4
+* SpringBootを使っていてハマった事[随時更新] - Qiita
+ * http://qiita.com/yakumo/items/026fc4274ac2692e4947
+* Spring Boot で Boot した後に作る Web アプリケーション基盤/spring-boot-application-infrastructure // Speaker Deck
+ * https://speakerdeck.com/sinsengumi/spring-boot-application-infrastructure
 
 ## 主な練習内容
 
