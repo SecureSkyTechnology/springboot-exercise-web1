@@ -11,6 +11,8 @@ Version: 3.8.3.RELEASE
 Build Id: 201612191351
 Platform: Eclipse Neon.2 (4.6.2)
 ```
+プロジェクトルート直下の `springboot-exercise-web1-cleanup.xml`, `springboot-exercise-web1-formatter.xml` はそれぞれEclipse用の Clean Up 設定ファイル, Java Editor の Code Formatter 設定ファイルになりますので、それぞれImportして使ってください。
+
 ビルド:
 
 ```
@@ -36,10 +38,23 @@ or
 * http://localhost:8080/sb1/my-h2-console/
  * h2db の Webコンソール。Basic認証をかけているため、 `h2admin`, パスワード `password` でログイン。
  * 使用するJDBCのURLについては、 `application.properties` 中の `spring.datasource.url` 参照。
+ * `production` profileで起動したときは無効になります。
 * http://localhost:8081/actuator-manage/(各 Actuator Endpoint)
  * Basic認証をかけているため、 `actadmin`, パスワード `password` でログイン。
 
+デフォルトのprofileは `default` です。profileを変更したり、使用するh2dbを変更したい場合は以下のように環境変数を調整します。
+
+```
+export SPRING_PROFILES_ACTIVE=production
+# 例 : localhost の 8182 で起動したh2dbにTCP接続
+export SPRING_DATASOURCE_URL=jdbc:h2:tcp://localhost:8182/test2;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+export SPRING_DATASOURCE_USERNAME=sa
+java ... -jar target/springboot-exercise-web1-0.0.1-SNAPSHOT.jar
+```
+
 ## 主な練習内容
+
+### Spring Framework, Web関連
 
 * `sbe.web1.mvc.BasicController` : Spring Framework MVCの基本の練習
  * `@Controller`, `@RestController`, `@RequestMapping`, `@GetMapping`
@@ -61,3 +76,9 @@ or
  * 単項目のカスタム Validation アノテーション作成の練習
  * 複数項目のカスタム Validation アノテーション作成の練習
  * Web API (`@RestController`, `@ResponseBody + @RequestBody` ) での入力エラーをJSONに変換する練習
+
+### 開発, 運用関連
+
+* Spring Boot の Actuator 組み込みの練習 (ポートを分離, Context Path 設定, 独自Basic認証設定, `shutdown` Endpoint の有効化)
+* `spring-boot-devtools` 導入による、STS上で保存 -> 即時リブートによるインクリメンタル開発の練習 + jarビルド時には除外する設定組み込み
+* JMX接続受付 + `tomcat-catalina-jmx-remote` 導入によるJMX RMI RegistryPort/ServerPort の固定 : `MyWebMvcConfigurerAdapter` 参照。
