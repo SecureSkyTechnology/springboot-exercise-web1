@@ -146,7 +146,7 @@ public class MyWebSecurityConfig {
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
-            http.antMatcher("/security-demo/basic-auth");
+            http.antMatcher("/security-demo/basic-auth/**");
             http.sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.NEVER);
             http.csrf()
