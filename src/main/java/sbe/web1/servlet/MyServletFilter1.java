@@ -17,6 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 
+/**
+ * 独自の {@link javax.servlet.Filter} を追加するデモ
+ */
 @WebFilter(filterName = "MyServletFilter1", urlPatterns = "/*")
 public class MyServletFilter1 implements Filter {
     static final Logger LOG = LoggerFactory.getLogger(MyServletFilter1.class);

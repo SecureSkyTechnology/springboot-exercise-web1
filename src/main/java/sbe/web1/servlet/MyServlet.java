@@ -15,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 
+/**
+ * 独自の {@link javax.servlet.http.HttpServlet} を追加するデモ
+ */
 @WebServlet(name = "MyServlet", urlPatterns = { "/servlet/myservlet" }, loadOnStartup = 1)
 public class MyServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;

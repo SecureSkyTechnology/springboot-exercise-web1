@@ -15,6 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 
+/**
+ * 独自の {@link javax.servlet.http.HttpSessionAttributeListener},
+ * {@link javax.servlet.http.HttpSessionListener} を追加するデモ
+ */
 @WebListener
 public class MyServletSessionListener implements HttpSessionListener, HttpSessionAttributeListener {
 

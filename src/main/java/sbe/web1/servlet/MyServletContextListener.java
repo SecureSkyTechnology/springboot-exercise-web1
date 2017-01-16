@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 
+/**
+ * 独自の {@link javax.servlet.ServletContextListener} を追加するデモ
+ */
 @WebListener
 public class MyServletContextListener implements ServletContextListener {
     static final Logger LOG = LoggerFactory.getLogger(MyServletContextListener.class);

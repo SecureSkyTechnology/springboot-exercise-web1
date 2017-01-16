@@ -13,6 +13,12 @@ import javax.servlet.annotation.WebFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 独自の {@link javax.servlet.Filter} を追加するデモ
+ * 
+ * filter-div1, filter-div0 のリクエストパラメータを整数値として取り出し、除算することでゼロ除算の例外を発生させることができる。
+ * また、上記パラメータが無くて、代わりに filter-ioex パラメータを含める(値はなんでもよい)ことで、IOExceptionを発生させることができる。
+ */
 @WebFilter(filterName = "MyServletFilter3", urlPatterns = "/*")
 public class MyServletFilter3 implements Filter {
     static final Logger LOG = LoggerFactory.getLogger(MyServletFilter3.class);
