@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -8,7 +8,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Spring Boot Benchmark App</title>
+    <title>springboot-exercise-web1</title>
 
     <!-- Bootstrap core CSS -->
     <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" />
@@ -34,13 +34,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Spring Boot Benchmark App</a>
+          <a class="navbar-brand" th:href="@{/}">springboot-exercise-web1</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li class="active"><a href="https://github.com/SecureSkyTechnology/springboot-exercise-web1" target="_blank">GitHub</a></li>
+            <li><a href="https://spring.io/docs/reference" target="_blank">spring.io</a></li>
+            <li><a href="http://www.thymeleaf.org/" target="_blank">Thymeleaf</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -49,11 +49,16 @@
     <div class="container">
 
       <div class="starter-template">
-        <h1>Spring Boot Benchmark App</h1>
-        <ul>
-          <li><a href="https://spring.io/" target="_blank">https://spring.io/</a></li>
-          <li><a href="http://www.thymeleaf.org/" target="_blank">http://www.thymeleaf.org/</a></li>
-        </ul>
+        <h1>springboot-exercise-web1</h1>
+        <p>練習内容の概要, h2 console, actuator へのアクセスは<a href="https://github.com/SecureSkyTechnology/springboot-exercise-web1/blob/master/README.md" target="_blank">README.md</a>をご覧ください。</p>
+        <p><a th:href="@{/basic/}" target="_blank">/basic/</a></p>
+        <p><a th:href="@{/attr-demo/}" target="_blank">/attr-demo/</a></p>
+        <p><a th:href="@{/thlf/}" target="_blank">/thlf/</a></p>
+        <p><a th:href="@{/validation-demo/}" target="_blank">/validation-demo/</a></p>
+        <p><a th:href="@{/exception-demo/}" target="_blank">/exception-demo/</a></p>
+        <p><a th:href="@{/jdbc/}" target="_blank">/jdbc/</a></p>
+        <p><a th:href="@{/misc/}" target="_blank">/misc/</a></p>
+        <p><a th:href="@{/security-demo/}" target="_blank">/security-demo/</a></p>
       </div>
 
     </div><!-- /.container -->
