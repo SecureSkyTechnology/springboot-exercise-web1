@@ -7,7 +7,7 @@
 <body>
 exception-demo/index.html.(日本語テスト)
 
-<h2>0 divide, format binding exception.</h2>
+<h2>Controllerのメソッド内での例外(0除算) + dateフォーマットを使ったBinding Exceptionのデモ</h2>
 <form data-th-action="@{./post}" method="POST">
 div : <input type="text" name="div1" value="1" size="10" /> &nbsp;/&nbsp; <input type="text" name="div0" value="1" size="10" /><br />
 <br />
@@ -23,34 +23,34 @@ divr : [[${divr}]]<br />
 dateTime : [[${dateTime}]]<br />
 </p>
 
-<h2>CustomException, IOException.</h2>
+<h2>コントローラのメソッドが、独自のException や IOException をthrowするデモ + 例外によりエラーページを出し分けるデモ</h2>
 <form data-th-action="@{./custom-ex}">
 exception type:<br />
-<label><input type="radio" name="exname" value="forbidden" />forbidden</label><br />
-<label><input type="radio" name="exname" value="conflict" />conflict</label><br />
-<label><input type="radio" name="exname" value="ioex" />IOException</label><br />
+<label><input type="radio" name="exname" value="forbidden" />throw MyCustomException1 + MyExceptionHandler によりエラーページ出し分け</label><br />
+<label><input type="radio" name="exname" value="conflict" />throw MyCustomException2 + エラーページはデフォルト(MyErrorController)</label><br />
+<label><input type="radio" name="exname" value="ioex" />throw IOException + MyExceptionHandler によりエラーページ出し分け</label><br />
 <br />
 <input type="submit" />
 </form>
 
-<h2>Exception inside HandlerIntercept</h2>
+<h2>HandlerIntercept(MyIntercept4) 内で例外(ゼロ除算)を発生させるデモ : エラーページはデフォルト(MyErrorController)</h2>
 <form data-th-action="@{./intercept-div}" method="POST">
 div : <input type="text" name="i4-div1" value="1" size="10" /> &nbsp;/&nbsp; <input type="text" name="i4-div0" value="1" size="10" /><br />
 <input type="submit" />
 </form>
 
-<h2>IOException inside HandlerIntercpet</h2>
+<h2>HandlerIntercept(MyIntercept4) 内で例外(IOException)を発生させるデモ : MyExceptionHandler によりエラーページ出し分け</h2>
 <p>
 <a data-th-href="@{./intercept-ioex(ioex=true)}">throw IOException</a>
 </p>
 
-<h2>Exception inside Servlet Filter</h2>
+<h2>Servlet Filter(MyServletFilter3) 内で例外(ゼロ除算)を発生させるデモ : Servlet Filter の段階なので、エラーページはデフォルト(MyErrorController)</h2>
 <form data-th-action="@{./filter-div}" method="POST">
 div : <input type="text" name="filter-div1" value="1" size="10" /> &nbsp;/&nbsp; <input type="text" name="filter-div0" value="1" size="10" /><br />
 <input type="submit" />
 </form>
 
-<h2>IOException inside Servlet Filter</h2>
+<h2>Servlet Filter(MyServletFilter3) 内で例外(IOException)を発生させるデモ : Servlet Filter の段階なので、エラーページはデフォルト(MyErrorController)</h2>
 <p>
 <a data-th-href="@{./filter-ioex(filter-ioex=true)}">throw IOException</a>
 </p>
