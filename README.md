@@ -54,9 +54,9 @@ java ... -jar target/springboot-exercise-web1-0.0.1-SNAPSHOT.jar
 
 ## 主な練習内容
 
-### Spring Framework, Web関連
+### `sbe.web1.mvc` パッケージ : Spring Framework, Web関連
 
-* `sbe.web1.mvc.BasicController` : Spring Framework MVCの基本の練習
+* `BasicController` : Spring Framework MVCの基本の練習
  * `@Controller`, `@RestController`, `@RequestMapping`, `@GetMapping`
  * メソッド引数による各種リクエストパラメータ・環境情報・Servlet関連オブジェクト(`HttpServletRequest/Response`, `HttpSession`, `ServletContext`) の取得
  * `@ResponseBody`, `@RequestBody` によるJSONリクエスト/レスポンス, 任意形式のレスポンスの処理
@@ -65,18 +65,56 @@ java ... -jar target/springboot-exercise-web1-0.0.1-SNAPSHOT.jar
  * リダイレクト, フォワード処理
  * `Locale` と `MessageSource` のJavaコード内での取得
  * ロギングの練習 (slf4j + logback利用, プロジェクトルート直下の `logback-spring.xml`, `logback.xml` も参照)
-* `sbe.web1.mvc.AttrDemoController`
+* `AttrDemoController`
  * `@ModelAttribute`, `@RequestAttribute`, `@SessionAttribute` の練習
-* `sbe.web1.mvc.ThymeleafSampleController` : Thymeleaf の練習
+* `ThymeleafSampleController` : Thymeleaf の練習
  * Thymeleaf + Spring での基本的な使い方の練習(`Model`, デフォルトオブジェクトの取得, リンクの生成, 条件分岐とループ処理, コメントアウト)
  * Thymeleaf テンプレート中からの `MessageSource` 取得, `Environment` によるプロファイルとプロパティの取得
  * fragment の練習, layout の練習
-* `sbe.web1.mvc.ValidationDemoController` : Validation の練習
+* `ValidationDemoController` : Validation の練習
  * 基本的な Validation アノテーションの練習
  * 単項目のカスタム Validation アノテーション作成の練習
  * 複数項目のカスタム Validation アノテーション作成の練習
  * Web API (`@RestController`, `@ResponseBody + @RequestBody` ) での入力エラーをJSONに変換する練習
+* `ExceptionDemoController` : 例外の取扱とエラーページのカスタマイズの練習
+ * コントローラのメソッド内で発生した例外の扱い
+ * リクエストパラメータのBinding時の例外の扱い
+ * `HandlerInterceptor` 内で発生した例外の扱い
+ * `Servlet Filter` 内で発生した例外の扱い
+ * Tomcat などの組み込みコンテナのデフォルトエラー画面のカスタマイズ
+  * `application.properties` の `server.error.path` プロパティに注目 -> `sbe.web1.MyErrorController` コントローラへの連携
+ * 例外クラスに応じたエラー画面の切り替え : `sbe.web1.MyExceptionHandler` 参照
+* `JdbcTemplateDemoController` : JdbcTemplate の練習
+* `MiscSampleController`
+ * Controller の Javaコードからの `ApplicationContext`, `Environment`, `ApplicationArguments` インスタンスの取得と操作の練習
+ * profile, プロパティの取り出しの練習
+ * `MyIntercept3`, 独自追加した `MyServlet` を動かすURLリンク
+* `SecurityDemoController`, `SecurityDemoApiController`
+ * Spring Security の練習(後述)
 
+### `sbe.web1` パッケージ直下 + 他 : TIPS
+
+* `MyApplication`
+ * `HttpServletRequest`, `ServletContext`, `ServerProperties` のダンプ出力メソッドの練習
+* `MyContextEventListener`
+ * Contextのライフサイクルイベントの観察の練習
+* `MySecurityEventListener`
+ * Spring Security で発行されるイベントの観察の練習
+* `MyWebMvcConfigurerAdapter`
+ * `Locale` をCookieに保存する `CookieLocaleResolver` の練習
+ * 明示的に `DataSource` をBean定義する練習
+ * `tomcat-catalina-jmx-remote` によりコンテナ設定でJMX RMI RegistryPort/ServerPort を固定する練習
+ * `sbe.web1.interceptors` パッケージ以下の `HandlerInterceptor` の登録
+* `MyWebSecurityConfig`
+ * Spring Security の練習(後述)
+
+* `sbe.web1.runner` パッケージ以下
+ * `ApplicationRunner` の練習
+ * `CommandLineRunner` の練習
+
+* `sbe.web1.servlet` パッケージ以下
+ * 独自の Servlet, Servlet Filter, ServletContextListener, HttpSessionListener, HttpSessionAttributeListener の練習
+ 
 ### 開発, 運用関連
 
 * Spring Boot の Actuator 組み込みの練習 (ポートを分離, Context Path 設定, 独自Basic認証設定, `shutdown` Endpoint の有効化)
