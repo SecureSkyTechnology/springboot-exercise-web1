@@ -7,6 +7,12 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * {@link sbe.web1.mvc.AttrDemoController} で
+ * {@link org.springframework.web.bind.annotation.RequestAttribute}
+ * アノテーションの例として、 {@link sbe.web1.mvc.interceptors.MyAttrsIntercept} で request
+ * 属性にセットされるBean
+ */
 public class MyAttrBean {
     static final Logger LOG = LoggerFactory.getLogger(MyAttrBean.class);
 

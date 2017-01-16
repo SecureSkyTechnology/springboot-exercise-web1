@@ -9,6 +9,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import sbe.web1.mvc.ExceptionDemoController;
+
+/**
+ * {@link ExceptionDemoController} のページで、HandlerInterceptor内で例外発生する時の挙動観察用のデモ
+ * 
+ * i4-div1, i4-div0 のリクエストパラメータを整数値として取り出し、除算することでゼロ除算の例外を発生させることができる。
+ * また、上記パラメータが無くて、代わりに ioex パラメータを含める(値はなんでもよい)ことで、IOExceptionを発生させることができる。
+ */
 public class MyIntercept4 extends HandlerInterceptorAdapter {
     static final Logger LOG = LoggerFactory.getLogger(MyIntercept4.class);
 

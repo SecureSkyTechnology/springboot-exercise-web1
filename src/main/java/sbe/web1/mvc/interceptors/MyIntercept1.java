@@ -8,6 +8,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * {@link org.springframework.web.servlet.HandlerInterceptor}
+ * の実装例として、独自のレスポンスヘッダーを追加してみる。
+ */
 public class MyIntercept1 implements HandlerInterceptor {
     static final Logger LOG = LoggerFactory.getLogger(MyIntercept1.class);
 

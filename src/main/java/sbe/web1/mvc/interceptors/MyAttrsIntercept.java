@@ -9,6 +9,13 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+/**
+ * {@link sbe.web1.mvc.AttrDemoController} で
+ * {@link org.springframework.web.bind.annotation.RequestAttribute}
+ * アノテーションの例として、
+ * {@link org.springframework.web.servlet.handler.HandlerInterceptorAdapter} にて
+ * {@link sbe.web1.mvc.interceptors.MyAttrBean} を request 属性に設定するデモ
+ */
 public class MyAttrsIntercept extends HandlerInterceptorAdapter {
     static final Logger LOG = LoggerFactory.getLogger(MyAttrsIntercept.class);
 
