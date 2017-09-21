@@ -39,11 +39,11 @@ or
 
 * http://localhost:8080/sb1/
 * http://localhost:8080/sb1/my-h2-console/
- * h2db の Webコンソール。Basic認証をかけているため、 `h2admin`, パスワード `password` でログイン。
- * 使用するJDBCのURLについては、 `application.properties` 中の `spring.datasource.url` 参照。
- * production profileで起動したときは無効になります。
+  * h2db の Webコンソール。Basic認証をかけているため、 `h2admin`, パスワード `password` でログイン。
+  * 使用するJDBCのURLについては、 `application.properties` 中の `spring.datasource.url` 参照。
+  * production profileで起動したときは無効になります。
 * http://localhost:8081/actuator-manage/(各 Actuator Endpoint)
- * Basic認証をかけているため、 `actadmin`, パスワード `password` でログイン。
+  * Basic認証をかけているため、 `actadmin`, パスワード `password` でログイン。
 
 デフォルトのprofileは default です。profileを変更したり、使用するh2dbを変更したい場合は以下のように環境変数を調整します。
 
